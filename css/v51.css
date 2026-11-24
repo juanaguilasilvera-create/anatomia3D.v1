@@ -1,0 +1,65 @@
+/* V51. Presentación del tutor y ficha sin textos técnicos innecesarios. */
+.sr-only{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)}
+#fichaSeleccion #tutorDock{gap:7px!important;padding:10px!important;border:1px solid #30543c!important}
+#fichaSeleccion #tutorDock .tutor-top{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:8px}
+#fichaSeleccion #tutorDock .tutor-top strong{font-size:12px!important}
+#fichaSeleccion #tutorDock .tutor-top #tutorEstado{font-size:10px!important;text-align:right;max-width:45%;color:#92bf9d!important}
+#fichaSeleccion .tutor-voz-botones{display:grid!important;grid-template-columns:1.15fr .85fr;gap:8px!important}
+#fichaSeleccion .tutor-voz-botones button{min-width:0;min-height:38px;border-radius:9px!important}
+#fichaSeleccion .tutor-extra{border:1px solid #304b37;border-radius:9px;margin:0!important;background:rgba(15,35,23,.35)!important}
+#fichaSeleccion .tutor-extra>summary{padding:11px 12px;font-size:12px!important;cursor:pointer;font-weight:650;color:#dceee0!important}
+#fichaSeleccion .tutor-extra[open]{padding-bottom:10px}
+#fichaSeleccion .tutor-extra .tutor-entrada{display:grid;grid-template-columns:36px minmax(0,1fr) 58px;gap:6px;padding:8px 8px 0}
+#fichaSeleccion #tutorTexto{min-width:0;width:100%;font-size:12px}
+#fichaSeleccion #tutorRespuesta:not([hidden]){margin:8px!important;padding:10px;border-radius:8px;line-height:1.5!important;font-size:12px!important;max-height:210px;overflow:auto}
+#fichaSeleccion #partDescription{font-size:12px!important;line-height:1.48!important;max-height:clamp(68px,14dvh,110px)!important;overflow:auto;}
+#partGuide{padding:0!important;overflow:visible!important;border:0!important;background:transparent!important;box-shadow:none!important}
+#partGuide .ficha-v51-cabecera{margin-bottom:12px;border:1px solid #344939;border-radius:10px;background:#15231a;padding:12px;min-width:0}
+#partGuide .ficha-v51-cabecera h3{font-size:16px!important;line-height:1.35!important;margin:7px 0 10px!important;color:#f2f8f2!important;overflow-wrap:anywhere}
+#partGuide .ficha-claves{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+#partGuide .ficha-mini{background:rgba(92,138,104,.11);padding:8px;border:1px solid #395742;border-radius:8px;min-width:0}
+#partGuide .ficha-mini:last-child{grid-column:1/-1}
+#partGuide .ficha-mini span{display:block;text-transform:uppercase;color:#9abb9f;font-size:9px;letter-spacing:.07em;margin-bottom:3px}
+#partGuide .ficha-mini strong{display:block;font-size:11px;line-height:1.45;color:#e0f2e4;overflow-wrap:anywhere;font-weight:600}
+#partGuide .ficha-seccion{border:1px solid #344939;background:#141d17;margin:8px 0;padding:12px;border-radius:9px;min-width:0;overflow-wrap:anywhere}
+#partGuide .ficha-seccion h4{margin:0 0 5px!important;color:#9bd8ac!important;font-size:11px!important;letter-spacing:.035em!important;text-transform:uppercase}
+#partGuide .ficha-seccion p{margin:0!important;font-size:12px!important;line-height:1.62!important;color:#e2eae4!important;overflow-wrap:anywhere}
+#partGuide .ficha-funcion{border-color:#416b4c;background:#18301e}
+#partGuide .ficha-metadata{border:1px solid #344939;border-radius:9px;margin-top:10px;background:#111a14;overflow-wrap:anywhere}
+#partGuide .ficha-metadata summary{font-size:11px;line-height:1.5;padding:11px;cursor:pointer;color:#b1cbb7;font-weight:650}
+#partGuide .ficha-metadata p,#partGuide .ficha-metadata dl{margin:8px 11px!important;font-size:11px!important;line-height:1.55!important;color:#a5bca9!important}
+#partGuide .ficha-metadata dl{display:grid;grid-template-columns:minmax(90px,38%) minmax(0,1fr);gap:7px}
+#partGuide .ficha-metadata dd{margin:0;overflow-wrap:anywhere}
+#partGuide .ficha-metadata a{display:block;font-size:11px;padding:4px 11px;color:#9ad8b3}
+body[data-theme="clinico"] #partGuide .ficha-v51-cabecera,body[data-theme="clinico"] #partGuide .ficha-seccion,body[data-theme="clinico"] #partGuide .ficha-metadata{background:#f1f6f2!important;border-color:#b7cbbd!important;color:#203926!important}
+body[data-theme="clinico"] #partGuide .ficha-mini{background:#fff!important;border-color:#c4d7c6!important}
+body[data-theme="clinico"] #partGuide .ficha-seccion p,body[data-theme="clinico"] #partGuide .ficha-v51-cabecera h3,body[data-theme="clinico"] #partGuide .ficha-mini strong{color:#203926!important}
+body[data-theme="clinico"] #partGuide .ficha-seccion h4,body[data-theme="clinico"] #partGuide .ficha-mini span{color:#346d48!important}
+body[data-theme="clinico"] #fichaSeleccion .tutor-extra>summary{color:#213e29!important}
+@media(max-width:430px){#partGuide .ficha-claves{grid-template-columns:1fr}#partGuide .ficha-mini:last-child{grid-column:auto}}
+
+/* V51.1 — Eliminar el marcador numérico del desplegable del tutor.
+   Mantener la apertura y cierre nativos de <details>. */
+#fichaSeleccion #tutorHerramientas > summary {
+  display: block !important;
+  list-style: none !important;
+  position: relative;
+  padding: 11px 32px 11px 12px !important;
+  cursor: pointer;
+}
+#fichaSeleccion #tutorHerramientas > summary::marker {
+  content: "";
+}
+#fichaSeleccion #tutorHerramientas > summary::-webkit-details-marker {
+  display: none;
+}
+#fichaSeleccion #tutorHerramientas > summary::after {
+  content: "▸";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#fichaSeleccion #tutorHerramientas[open] > summary::after {
+  content: "▾";
+}

@@ -1,0 +1,22 @@
+/* V49: importador visible desde el selector superior; no es un nuevo panel anatómico. */
+.github-overlay{position:fixed;inset:0;z-index:250;display:grid;place-items:center;padding:18px;background:#000a;backdrop-filter:blur(5px)}
+.github-overlay[hidden]{display:none!important}
+.github-modal{width:min(96vw,620px);max-height:min(90dvh,710px);overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:23px;border-radius:16px;border:1px solid #466956;background:#121e18;color:#eaf5ed;box-shadow:0 24px 85px #000b;font:inherit}
+.github-head{display:flex;align-items:flex-start;gap:15px;justify-content:space-between}
+.github-eyebrow{font-size:10px;font-weight:800;color:#7dc597;letter-spacing:1.5px}
+.github-head h2{font-size:20px;color:#f5fff6;margin:4px 0 0}
+.github-modal p{font-size:13px;line-height:1.5;color:#c5d6c9;margin:0}
+.github-modal label{display:block;font-size:12px;font-weight:700;color:#e5f3e8}
+.github-entrada{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.github-modal input,.github-modal select{width:100%;min-width:0;background:#0b120e;color:#eefbf1;border:1px solid #45624c;border-radius:9px;padding:11px;font:inherit;font-size:12px}
+.github-modal select{min-height:118px;max-height:220px;padding:5px}
+.github-modal select option{padding:7px}
+.github-modal button{padding:10px 14px;min-height:40px;border-radius:9px;background:#235b38;color:#fff;border:1px solid #4ba36b;font:inherit;font-size:12px;cursor:pointer;font-weight:700}
+.github-modal button:disabled{opacity:.55;cursor:wait}
+.github-modal #githubCerrar{background:#29392f;border-color:#64776a;min-height:36px}
+.github-resultados{display:flex;flex-direction:column;gap:9px}
+.github-resultados[hidden]{display:none!important}
+.github-modal .github-ayuda{font-size:11px;color:#a6b9ac}
+.github-modal #githubEstado{border-top:1px solid #3c5545;padding-top:10px;color:#9ed3ab;overflow-wrap:anywhere}
+.github-modal #githubEstado.error{color:#ffabab}
+@media(max-width:580px){.github-overlay{padding:8px}.github-modal{padding:16px}.github-entrada{grid-template-columns:1fr}.github-modal #githubBuscar{width:100%}}

@@ -1,0 +1,5 @@
+El dragón y el zorro son modelos artísticos de GitHub. Se descargan automáticamente
+a esta carpeta al seleccionarlos desde el programa iniciado con
+INICIAR_LABORATORIO_WINDOWS.bat. No representan anatomía interna científicamente.
+
+Fuente y licencias: creditos/FUENTES_V22.md

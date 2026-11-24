@@ -1,0 +1,88 @@
+/* V44 · Ficha + tutor unificados, sin pestaña duplicada. */
+.right .detalle-seleccion-top {min-height:43px!important; padding:10px 15px!important; border-bottom:1px solid #27412e!important}
+.voz-label {padding:5px 8px;border-radius:7px;background:#183c24;border:1px solid #376b49;color:#b8f5c8;font-size:10px;font-weight:800;letter-spacing:.05em}
+.right #fichaSeleccion {flex:0 0 auto;max-height:min(42dvh,380px)!important;overflow-y:auto!important;gap:7px!important; padding:12px 14px 16px!important;scrollbar-color:#406047 #101310}
+#fichaSeleccion #partDescription {max-height:clamp(85px,17dvh,190px);overflow:auto;line-height:1.52!important;font-size:13px!important}
+#fichaSeleccion #partTags {max-height:54px}
+#fichaSeleccion #tutorDock {display:flex;flex-direction:column;gap:10px;background:#101812!important;border:1px solid #33523a!important;border-radius:12px;padding:12px!important;box-shadow:none;min-height:0;max-height:none;flex:0 0 auto}
+#fichaSeleccion #tutorDock .tutor-top {display:flex;flex-direction:column;align-items:stretch;gap:5px;margin:0}
+#fichaSeleccion #tutorDock .tutor-top strong {color:#d8f3df!important;font-size:13px}
+#fichaSeleccion #tutorDock #tutorEstado {color:#b7cbb9!important;font-size:11px;line-height:1.4;overflow-wrap:anywhere}
+#fichaSeleccion .tutor-voz-ajustes {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px;margin:0;padding:0;border:0}
+#fichaSeleccion .tutor-voz-ajustes label {font-size:11px;color:#b9e3c0!important;display:flex;flex-direction:column;gap:5px;min-width:0}
+#fichaSeleccion .tutor-voz-ajustes select {width:100%;min-width:0;max-width:100%;height:35px;border-radius:7px;border:1px solid #456b4e;background:#19291c;color:#fafafa;padding:6px;font-size:11px}
+#fichaSeleccion .tutor-voz-ajustes output {font-size:10px;color:#c5eccb}
+#fichaSeleccion .tutor-voz-ajustes input {width:100%;accent-color:#49aa67}
+#fichaSeleccion .tutor-voz-botones {display:grid!important;grid-template-columns:1.2fr 1fr;gap:8px;align-items:stretch;padding:0;margin:0}
+#fichaSeleccion .tutor-voz-botones button {min-height:40px!important;width:100%;margin:0!important;border-radius:8px!important;font-weight:800!important;font-size:12px!important}
+#fichaSeleccion #explicarSeleccionDirecto {background:#227443!important;color:#fff!important;border:1px solid #55b776!important}
+#fichaSeleccion #tutorSilencio {background:#202a22!important;color:#e2eae3!important;border:1px solid #4a6050!important}
+#fichaSeleccion #tutorVozDisponibilidad {font-size:10px;line-height:1.4;color:#9ab59e!important}
+#fichaSeleccion .tutor-extra {margin:2px 0;border:1px solid #34503b;border-radius:8px;padding:8px 10px;background:#151e17}
+#fichaSeleccion .tutor-extra summary {font-size:11px;font-weight:750;cursor:pointer;color:#d3e8d7;list-style:auto}
+#fichaSeleccion .tutor-extra[open] {display:flex;flex-direction:column;gap:10px}
+#fichaSeleccion .tutor-entrada {display:flex;gap:5px;min-width:0}
+#fichaSeleccion .tutor-entrada input {min-width:0;flex:1}
+#fichaSeleccion .tutor-recorridos {padding:8px;margin:0}
+#fichaSeleccion .tutor-voz-botones #tutorSilencio:disabled {opacity:.6}
+#fichaSeleccion .selection-actions {grid-template-columns:repeat(3,minmax(0,1fr))!important; margin-top:1px}
+#fichaSeleccion .selection-actions button {font-size:10px!important;min-height:35px!important}
+body[data-theme="clinico"] #fichaSeleccion #tutorDock {background:#edf4ed!important;border-color:#a4c9ad!important}
+body[data-theme="clinico"] #fichaSeleccion #tutorDock .tutor-top strong,
+body[data-theme="clinico"] #fichaSeleccion #tutorDock #tutorEstado,
+body[data-theme="clinico"] #fichaSeleccion .tutor-voz-ajustes label,
+body[data-theme="clinico"] #fichaSeleccion #tutorVozDisponibilidad {color:#163322!important}
+body[data-theme="clinico"] #fichaSeleccion .tutor-extra {background:#e6eee6;border-color:#aec9b0}
+body[data-theme="clinico"] #fichaSeleccion .tutor-extra summary {color:#173322}
+body[data-theme="clinico"] .voz-label {color:#ecffed!important}
+@media(max-width:550px){.right #fichaSeleccion{max-height:min(39dvh,315px)!important;padding:10px 11px!important}#fichaSeleccion .tutor-voz-ajustes{grid-template-columns:1fr}#fichaSeleccion .selection-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+
+/* V45: asegurar que el inspector inferior derecho nunca se pierda detrás del tutor. */
+.right.sidebar {min-height:0!important; max-height:100%!important; overflow:hidden!important;}
+.right .panel-topline,.right .detalle-seleccion-top,.right .inspector-section-bar,
+.right .inspector-tabs,.right .v29-nav {flex-shrink:0!important;}
+.right #fichaSeleccion {flex:0 1 auto!important;min-height:115px!important;max-height:min(42dvh,380px)!important;
+ overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;scrollbar-gutter:stable;}
+.right .inspector-content {flex:1 1 170px!important;min-height:145px!important;
+ overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain;}
+#fichaSeleccion .voz-fija {font-size:12px;line-height:1.4;color:#ccead0;padding:7px 9px;
+ border:1px solid #36563f;border-radius:8px;background:#15241a;}
+body[data-theme="clinico"] #fichaSeleccion .voz-fija {background:#e5eee7;color:#163322;border-color:#a4c9ad;}
+@media(max-height:740px) {
+ .right #fichaSeleccion {max-height:min(34dvh,270px)!important;}
+ .right .inspector-content {min-height:112px!important;}
+}
+@media(max-height:570px) {
+ .right.sidebar {overflow-y:auto!important;}
+ .right #fichaSeleccion {max-height:210px!important;flex-shrink:0!important;}
+ .right .inspector-content {flex:0 0 180px!important;min-height:180px!important;}
+}
+/* Ventanas muy bajas: inspector siempre visible y ficha desplazable. */
+@media (max-height:570px) {
+ .right.sidebar #fichaSeleccion {flex:0 0 auto!important;min-height:72px!important;max-height:min(23dvh,130px)!important;overflow-y:auto!important;}
+ .right.sidebar #inspectorContent {flex:1 1 110px!important;min-height:100px!important;overflow-y:auto!important;}
+}
+
+/* V46 · Evitar recorte horizontal de pestañas matemáticas en la barra izquierda. */
+#leftPanel .math-workspace{min-width:0!important;overflow-x:hidden!important;}
+#leftPanel .math-tabs{
+ display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;
+ gap:7px!important;margin:10px 0 12px!important;min-width:0!important;
+}
+#leftPanel .math-tabs button{
+ grid-column:span 2;display:flex;align-items:center;justify-content:center;
+ min-width:0!important;max-width:100%!important;min-height:43px!important;
+ padding:8px 2px!important;white-space:normal!important;overflow-wrap:normal!important;
+ word-break:normal!important;letter-spacing:0!important;
+ font-size:clamp(11px,0.94vw,13px)!important;line-height:1.25!important;
+ box-sizing:border-box!important;border-radius:7px!important;text-align:center!important;
+}
+#leftPanel .math-tabs button:nth-child(n+4){grid-column:span 3;}
+#leftPanel .math-tabs button:not(.active){background:var(--panel-secundario,#222)!important;color:var(--texto-ui,#eee)!important;border-color:var(--borde-ui,#444)!important;box-shadow:none!important;}
+#leftPanel .math-display{overflow-x:auto!important;overflow-wrap:anywhere!important;max-width:100%!important;}
+#leftPanel .math-display pre{max-width:100%!important;overflow-x:auto!important;white-space:pre!important;font-size:12px!important;}
+#leftPanel .module-item:not(.active){background:transparent!important;color:var(--texto-ui,#ddd)!important;box-shadow:none!important;}
+#leftPanel .ayuda-modulos{margin:0 0 11px;padding:9px 11px;background:var(--panel-secundario,#202020);border:1px solid var(--borde-ui,#454545);border-radius:8px;}
+#leftPanel .ayuda-modulos summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--texto-ui,#eee);}
+#leftPanel .ayuda-modulos p{font-size:12px!important;line-height:1.55;color:var(--texto-suave,#bbb);margin:8px 0 0;}
+@media(max-width:900px){#leftPanel .math-tabs button{font-size:12px!important;}}

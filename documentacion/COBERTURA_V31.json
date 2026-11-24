@@ -1,0 +1,919 @@
+{
+  "fuente": "BodyParts3D",
+  "total": 2234,
+  "reglas": "Coincidencias nominales mínimas; no certifican cobertura ni integridad morfológica.",
+  "correcciones": [
+    {
+      "id": "FJ1438",
+      "nombre": "Right tensor fasciae latae",
+      "antes": "connective",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ1438M",
+      "nombre": "Left tensor fasciae latae",
+      "antes": "connective",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ1471",
+      "nombre": "Flexor retinaculum of right wrist",
+      "antes": "sensory",
+      "despues": "connective"
+    },
+    {
+      "id": "FJ1471M",
+      "nombre": "Flexor retinaculum of left wrist",
+      "antes": "sensory",
+      "despues": "connective"
+    },
+    {
+      "id": "FJ1730",
+      "nombre": "Third ventricle",
+      "antes": "cardiac",
+      "despues": "nervous"
+    },
+    {
+      "id": "FJ1731",
+      "nombre": "Fourth ventricle",
+      "antes": "cardiac",
+      "despues": "nervous"
+    },
+    {
+      "id": "FJ1752",
+      "nombre": "Interventricular foramen",
+      "antes": "cardiac",
+      "despues": "nervous"
+    },
+    {
+      "id": "FJ1755",
+      "nombre": "Choroid plexus of cerebral hemisphere",
+      "antes": "sensory",
+      "despues": "nervous"
+    },
+    {
+      "id": "FJ1767",
+      "nombre": "Left lateral ventricle",
+      "antes": "cardiac",
+      "despues": "nervous"
+    },
+    {
+      "id": "FJ1803",
+      "nombre": "Choroid plexus of cerebral hemisphere",
+      "antes": "sensory",
+      "despues": "nervous"
+    },
+    {
+      "id": "FJ1814",
+      "nombre": "Right lateral ventricle",
+      "antes": "cardiac",
+      "despues": "nervous"
+    },
+    {
+      "id": "FJ2440",
+      "nombre": "Cricoid cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2554",
+      "nombre": "Right major alar cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2555",
+      "nombre": "Left major alar cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2556",
+      "nombre": "Left lateral nasal cartilage",
+      "antes": "respiratory",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2557",
+      "nombre": "Septal nasal cartilage",
+      "antes": "respiratory",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2558",
+      "nombre": "Right lateral nasal cartilage",
+      "antes": "respiratory",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2740",
+      "nombre": "Left inferior pharyngeal constrictor",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2742",
+      "nombre": "Right middle pharyngeal constrictor",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2743",
+      "nombre": "Left palatopharyngeus",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2745",
+      "nombre": "Left salpingopharyngeus",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2746",
+      "nombre": "Left stylopharyngeus",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2747",
+      "nombre": "Left superior pharyngeal constrictor",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2752",
+      "nombre": "Right inferior pharyngeal constrictor",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2754",
+      "nombre": "Left middle pharyngeal constrictor",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2755",
+      "nombre": "Right palatopharyngeus",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2757",
+      "nombre": "Right salpingopharyngeus",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2758",
+      "nombre": "Right stylopharyngeus",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2759",
+      "nombre": "Right superior pharyngeal constrictor",
+      "antes": "respiratory",
+      "despues": "muscular"
+    },
+    {
+      "id": "FJ2769",
+      "nombre": "Cricoid cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2770",
+      "nombre": "Epiglottis",
+      "antes": "respiratory",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2773",
+      "nombre": "Left cuneiform cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2775",
+      "nombre": "Left arytenoid cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2776",
+      "nombre": "Left corniculate cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2792",
+      "nombre": "Right arytenoid cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2793",
+      "nombre": "Right corniculate cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2795",
+      "nombre": "Right cuneiform cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ2808",
+      "nombre": "Thyroid cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3239",
+      "nombre": "Left first costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3242",
+      "nombre": "Left second costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3245",
+      "nombre": "Left third costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3248",
+      "nombre": "Left fourth costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3251",
+      "nombre": "Left fifth costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3254",
+      "nombre": "Left sixth costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3255",
+      "nombre": "Left seventh costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3263",
+      "nombre": "Left inferior nasal concha",
+      "antes": "respiratory",
+      "despues": "skeletal"
+    },
+    {
+      "id": "FJ3265",
+      "nombre": "Left lacrimal bone",
+      "antes": "sensory",
+      "despues": "skeletal"
+    },
+    {
+      "id": "FJ3333",
+      "nombre": "Right first costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3335",
+      "nombre": "Right second costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3337",
+      "nombre": "Right third costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3339",
+      "nombre": "Right fourth costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3341",
+      "nombre": "Right fifth costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3343",
+      "nombre": "Right sixth costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3345",
+      "nombre": "Right seventh costal cartilage",
+      "antes": "skeletal",
+      "despues": "cartilage"
+    },
+    {
+      "id": "FJ3369",
+      "nombre": "Right inferior nasal concha",
+      "antes": "respiratory",
+      "despues": "skeletal"
+    },
+    {
+      "id": "FJ3371",
+      "nombre": "Right lacrimal bone",
+      "antes": "sensory",
+      "despues": "skeletal"
+    }
+  ],
+  "grupos": {
+    "skeletal": {
+      "cantidad": 275,
+      "estado": [
+        {
+          "nombre": "Cráneo",
+          "presente": true
+        },
+        {
+          "nombre": "Columna",
+          "presente": true
+        },
+        {
+          "nombre": "Fémur",
+          "presente": true
+        }
+      ],
+      "faltantes": []
+    },
+    "cartilage": {
+      "cantidad": 29,
+      "estado": [
+        {
+          "nombre": "Cartílago costal",
+          "presente": true
+        },
+        {
+          "nombre": "Meniscos",
+          "presente": false
+        }
+      ],
+      "faltantes": [
+        "Meniscos"
+      ]
+    },
+    "muscular": {
+      "cantidad": 416,
+      "estado": [
+        {
+          "nombre": "Bíceps",
+          "presente": true
+        },
+        {
+          "nombre": "Cuádriceps",
+          "presente": true
+        },
+        {
+          "nombre": "Diafragma",
+          "presente": true
+        }
+      ],
+      "faltantes": []
+    },
+    "cardiac": {
+      "cantidad": 18,
+      "estado": [
+        {
+          "nombre": "Corazón (malla general)",
+          "presente": false
+        },
+        {
+          "nombre": "Válvulas",
+          "presente": true
+        },
+        {
+          "nombre": "Aurículas",
+          "presente": true
+        },
+        {
+          "nombre": "Ventrículos",
+          "presente": true
+        }
+      ],
+      "faltantes": [
+        "Corazón (malla general)"
+      ]
+    },
+    "arterial": {
+      "cantidad": 639,
+      "estado": [
+        {
+          "nombre": "Aorta",
+          "presente": true
+        },
+        {
+          "nombre": "Carótida",
+          "presente": true
+        }
+      ],
+      "faltantes": []
+    },
+    "venous": {
+      "cantidad": 404,
+      "estado": [
+        {
+          "nombre": "Venas cavas",
+          "presente": true
+        },
+        {
+          "nombre": "Yugular",
+          "presente": true
+        }
+      ],
+      "faltantes": []
+    },
+    "nervous": {
+      "cantidad": 146,
+      "estado": [
+        {
+          "nombre": "Encéfalo (malla general)",
+          "presente": false
+        },
+        {
+          "nombre": "Cerebelo",
+          "presente": true
+        },
+        {
+          "nombre": "Médula espinal",
+          "presente": false
+        },
+        {
+          "nombre": "Nervios",
+          "presente": true
+        }
+      ],
+      "faltantes": [
+        "Encéfalo (malla general)",
+        "Médula espinal"
+      ]
+    },
+    "respiratory": {
+      "cantidad": 101,
+      "estado": [
+        {
+          "nombre": "Pulmón izquierdo",
+          "presente": false
+        },
+        {
+          "nombre": "Pulmón derecho",
+          "presente": false
+        },
+        {
+          "nombre": "Tráquea",
+          "presente": true
+        },
+        {
+          "nombre": "Bronquio izquierdo",
+          "presente": true
+        },
+        {
+          "nombre": "Bronquio derecho",
+          "presente": true
+        }
+      ],
+      "faltantes": [
+        "Pulmón izquierdo",
+        "Pulmón derecho"
+      ]
+    },
+    "digestive": {
+      "cantidad": 97,
+      "estado": [
+        {
+          "nombre": "Hígado",
+          "presente": false
+        },
+        {
+          "nombre": "Estómago",
+          "presente": true
+        },
+        {
+          "nombre": "Esófago",
+          "presente": true
+        },
+        {
+          "nombre": "Páncreas",
+          "presente": true
+        },
+        {
+          "nombre": "Vesícula biliar",
+          "presente": true
+        },
+        {
+          "nombre": "Intestino delgado",
+          "presente": true
+        },
+        {
+          "nombre": "Colon",
+          "presente": true
+        }
+      ],
+      "faltantes": [
+        "Hígado"
+      ]
+    },
+    "urinary": {
+      "cantidad": 6,
+      "estado": [
+        {
+          "nombre": "Riñón izquierdo",
+          "presente": true
+        },
+        {
+          "nombre": "Riñón derecho",
+          "presente": true
+        },
+        {
+          "nombre": "Uréteres",
+          "presente": true
+        },
+        {
+          "nombre": "Vejiga",
+          "presente": true
+        },
+        {
+          "nombre": "Uretra",
+          "presente": true
+        }
+      ],
+      "faltantes": []
+    },
+    "reproductive": {
+      "cantidad": 12,
+      "estado": [
+        {
+          "nombre": "Testículos",
+          "presente": true
+        },
+        {
+          "nombre": "Próstata",
+          "presente": true
+        },
+        {
+          "nombre": "Vesículas seminales",
+          "presente": true
+        }
+      ],
+      "faltantes": []
+    },
+    "lymphatic": {
+      "cantidad": 3,
+      "estado": [
+        {
+          "nombre": "Bazo",
+          "presente": true
+        },
+        {
+          "nombre": "Timo",
+          "presente": true
+        },
+        {
+          "nombre": "Ganglios linfáticos",
+          "presente": false
+        },
+        {
+          "nombre": "Vasos linfáticos",
+          "presente": false
+        }
+      ],
+      "faltantes": [
+        "Ganglios linfáticos",
+        "Vasos linfáticos"
+      ]
+    },
+    "endocrine": {
+      "cantidad": 4,
+      "estado": [
+        {
+          "nombre": "Tiroides",
+          "presente": false
+        },
+        {
+          "nombre": "Paratiroides",
+          "presente": false
+        },
+        {
+          "nombre": "Hipófisis",
+          "presente": true
+        },
+        {
+          "nombre": "Pineal",
+          "presente": true
+        },
+        {
+          "nombre": "Suprarrenales",
+          "presente": true
+        }
+      ],
+      "faltantes": [
+        "Tiroides",
+        "Paratiroides"
+      ]
+    },
+    "sensory": {
+      "cantidad": 39,
+      "estado": [
+        {
+          "nombre": "Retina",
+          "presente": true
+        },
+        {
+          "nombre": "Córnea",
+          "presente": true
+        },
+        {
+          "nombre": "Oído interno",
+          "presente": false
+        }
+      ],
+      "faltantes": [
+        "Oído interno"
+      ]
+    },
+    "connective": {
+      "cantidad": 40,
+      "estado": [
+        {
+          "nombre": "Ligamentos",
+          "presente": true
+        },
+        {
+          "nombre": "Tendones",
+          "presente": true
+        }
+      ],
+      "faltantes": []
+    },
+    "integumentary": {
+      "cantidad": 5,
+      "estado": [
+        {
+          "nombre": "Piel",
+          "presente": true
+        },
+        {
+          "nombre": "Cabello",
+          "presente": true
+        }
+      ],
+      "faltantes": []
+    }
+  },
+  "encefalo": [
+    {
+      "id": "FJ1730",
+      "nombre": "Third ventricle"
+    },
+    {
+      "id": "FJ1731",
+      "nombre": "Fourth ventricle"
+    },
+    {
+      "id": "FJ1732",
+      "nombre": "Left angular gyrus"
+    },
+    {
+      "id": "FJ1733",
+      "nombre": "Right angular gyrus"
+    },
+    {
+      "id": "FJ1738",
+      "nombre": "Cerebral aqueduct"
+    },
+    {
+      "id": "FJ1739",
+      "nombre": "Left cingulate gyrus"
+    },
+    {
+      "id": "FJ1740",
+      "nombre": "Right cingulate gyrus"
+    },
+    {
+      "id": "FJ1743",
+      "nombre": "Habenula"
+    },
+    {
+      "id": "FJ1744",
+      "nombre": "Left inferior frontal gyrus"
+    },
+    {
+      "id": "FJ1745",
+      "nombre": "Right inferior frontal gyrus"
+    },
+    {
+      "id": "FJ1746",
+      "nombre": "Left inferior temporal gyrus"
+    },
+    {
+      "id": "FJ1747",
+      "nombre": "Right inferior temporal gyrus"
+    },
+    {
+      "id": "FJ1748",
+      "nombre": "Left insula"
+    },
+    {
+      "id": "FJ1749",
+      "nombre": "Right insula"
+    },
+    {
+      "id": "FJ1750",
+      "nombre": "Left internal capsule"
+    },
+    {
+      "id": "FJ1751",
+      "nombre": "Right internal capsule"
+    },
+    {
+      "id": "FJ1758",
+      "nombre": "White matter of left cerebral hemisphere"
+    },
+    {
+      "id": "FJ1759",
+      "nombre": "Left hippocampus"
+    },
+    {
+      "id": "FJ1760",
+      "nombre": "Hypothalamus"
+    },
+    {
+      "id": "FJ1762",
+      "nombre": "Left inferior colliculus"
+    },
+    {
+      "id": "FJ1767",
+      "nombre": "Left lateral ventricle"
+    },
+    {
+      "id": "FJ1769",
+      "nombre": "Medulla oblongata"
+    },
+    {
+      "id": "FJ1770",
+      "nombre": "Midbrain"
+    },
+    {
+      "id": "FJ1775",
+      "nombre": "Pons"
+    },
+    {
+      "id": "FJ1779",
+      "nombre": "Left superior colliculus"
+    },
+    {
+      "id": "FJ1780",
+      "nombre": "Tuber cinereum"
+    },
+    {
+      "id": "FJ1781",
+      "nombre": "Cerebellum"
+    },
+    {
+      "id": "FJ1783",
+      "nombre": "Left fusiform gyrus"
+    },
+    {
+      "id": "FJ1784",
+      "nombre": "Right fusiform gyrus"
+    },
+    {
+      "id": "FJ1785",
+      "nombre": "Left parahippocampal gyrus"
+    },
+    {
+      "id": "FJ1786",
+      "nombre": "Right parahippocampal gyrus"
+    },
+    {
+      "id": "FJ1787",
+      "nombre": "Left middle frontal gyrus"
+    },
+    {
+      "id": "FJ1788",
+      "nombre": "Right middle frontal gyrus"
+    },
+    {
+      "id": "FJ1789",
+      "nombre": "Left middle temporal gyrus"
+    },
+    {
+      "id": "FJ1790",
+      "nombre": "Right middle temporal gyrus"
+    },
+    {
+      "id": "FJ1791",
+      "nombre": "Left occipital lobe"
+    },
+    {
+      "id": "FJ1792",
+      "nombre": "Right occipital lobe"
+    },
+    {
+      "id": "FJ1797",
+      "nombre": "Left postcentral gyrus"
+    },
+    {
+      "id": "FJ1798",
+      "nombre": "Right postcentral gyrus"
+    },
+    {
+      "id": "FJ1800",
+      "nombre": "Left precentral gyrus"
+    },
+    {
+      "id": "FJ1801",
+      "nombre": "Right precentral gyrus"
+    },
+    {
+      "id": "FJ1806",
+      "nombre": "White matter of right cerebral hemisphere"
+    },
+    {
+      "id": "FJ1807",
+      "nombre": "Right hippocampus"
+    },
+    {
+      "id": "FJ1808",
+      "nombre": "Hypothalamus"
+    },
+    {
+      "id": "FJ1810",
+      "nombre": "Right inferior colliculus"
+    },
+    {
+      "id": "FJ1814",
+      "nombre": "Right lateral ventricle"
+    },
+    {
+      "id": "FJ1817",
+      "nombre": "Midbrain"
+    },
+    {
+      "id": "FJ1822",
+      "nombre": "Pons"
+    },
+    {
+      "id": "FJ1826",
+      "nombre": "Right superior colliculus"
+    },
+    {
+      "id": "FJ1828",
+      "nombre": "Tuber cinereum"
+    },
+    {
+      "id": "FJ1830",
+      "nombre": "Cerebellum"
+    },
+    {
+      "id": "FJ1831",
+      "nombre": "Medulla oblongata"
+    },
+    {
+      "id": "FJ1833",
+      "nombre": "Left superior frontal gyrus"
+    },
+    {
+      "id": "FJ1834",
+      "nombre": "Right superior frontal gyrus"
+    },
+    {
+      "id": "FJ1835",
+      "nombre": "Left superior parietal lobule"
+    },
+    {
+      "id": "FJ1836",
+      "nombre": "Right superior parietal lobule"
+    },
+    {
+      "id": "FJ1841",
+      "nombre": "Left supramarginal gyrus"
+    },
+    {
+      "id": "FJ1842",
+      "nombre": "Right supramarginal gyrus"
+    }
+  ]
+}

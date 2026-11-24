@@ -1,0 +1,19 @@
+/* V53: mostrar la levitación en la barra del visor sin abrir ajustes avanzados.
+   Se conserva el diseño y el desplazamiento horizontal existente en pantallas pequeñas. */
+body #app .bottom-controls .action-row #btnFloat {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Conservar todos los controles del visor en pantallas medianas; en móviles
+   se mantiene el desplazamiento horizontal de la barra. */
+body #app .bottom-controls {
+  width: max-content !important;
+  max-width: calc(100% - 18px) !important;
+}
+body #app .bottom-controls .action-row {
+  width: max-content !important;
+  max-width: calc(100% - 16px) !important;
+  overflow-x: auto !important;
+}

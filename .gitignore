@@ -1,0 +1,18 @@
+# No subir archivos originales externos sin verificar licencias
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+.env
+*.log
+modelos/premium/diagnostico.json
+modelos/especializados/fuentes.json
+modelos/premium/*.glb
+modelos/especializados/*.glb
+# Si decides publicar GLB autorizados, elimina las dos reglas anteriores y usa Git LFS.
+# Dependencias y modelos de voz (instalación en la computadora del usuario)
+.venv_kokoro/
+modelos/kokoro/*.onnx
+modelos/kokoro/*.bin
+modelos/kokoro/*.descarga
+prueba_voces/

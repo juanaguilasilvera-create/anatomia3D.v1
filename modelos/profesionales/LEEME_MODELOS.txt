@@ -1,0 +1,16 @@
+ATLAS PROFESIONAL Z-ANATOMY — LABORATORIO V22
+
+No tienes que importar archivos GLB ni ejecutar un instalador aparte.
+
+Usa INICIAR_LABORATORIO_WINDOWS.bat, selecciona un sistema y el servidor
+intentará reutilizar una copia validada de una versión anterior o descargarla
+automáticamente desde el repositorio original.
+
+Archivos esperados (se guardan aquí cuando se obtienen):
+ skeletal.glb, joints.glb, muscular.glb, cardiovascular.glb,
+ lymphatic.glb, nervous.glb, visceral.glb
+
+El cuerpo humano clásico completo está empaquetado por separado en
+modelos/atlas.json y body-*.bin.gz.
+
+Fuentes y condiciones no comerciales: creditos/FUENTES_V22.md

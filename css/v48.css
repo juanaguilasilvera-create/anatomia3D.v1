@@ -1,0 +1,47 @@
+/* V48 · Ojo detallado: panel integrado en el visor, sin afectar el inspector. */
+.visor-ojo-detalle{
+ position:absolute;inset:10px 12px 13px;z-index:12;
+ min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(120px,1fr) auto auto auto;
+ gap:9px;padding:12px;background:#10161cf7;border:1px solid #354955;
+ border-radius:12px;box-shadow:0 14px 48px #000b;color:#e9f2f6;
+}
+.visor-ojo-detalle[hidden]{display:none!important}
+.ojo-detalle-encabezado{display:flex;align-items:center;gap:10px;justify-content:space-between;min-width:0}
+.ojo-detalle-encabezado>div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.ojo-detalle-encabezado small{font-size:9px;letter-spacing:1.3px;color:#66bdab;font-weight:800}
+.ojo-detalle-encabezado strong{font-size:17px;line-height:1.15;color:#f4f8fa}
+.ojo-detalle-encabezado span{font-size:10px;color:#9db0bc;line-height:1.35}
+.ojo-cerrar,.ojo-detalle-controles select,.ojo-lista button{background:#1e2b33;color:#dbe8f0;border:1px solid #446070;border-radius:7px}
+.ojo-cerrar{padding:9px 12px;flex:none;font-size:12px}
+.ojo-cerrar:hover,.ojo-lista button:hover{background:#2c4856;border-color:#78acb7}
+.ojo-vista{width:100%;height:100%;min-height:100px;overflow:hidden;position:relative;border:1px solid #2a444f;border-radius:9px;background:#0a0e14}
+.ojo-vista canvas{display:block;width:100%;height:100%;touch-action:none}
+.ojo-detalle-controles{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);align-items:center;gap:14px}
+.ojo-detalle-controles label{display:flex;align-items:center;gap:9px;min-width:0;font-size:11px;font-weight:650;color:#c2d5dc}
+.ojo-detalle-controles input{width:100%;min-width:20px;flex:1;accent-color:#36a58c}
+.ojo-detalle-controles select{min-width:0;padding:7px 8px;font-size:11px;flex:1}
+.ojo-detalle-controles output{min-width:35px;text-align:right;color:#a5e0d4}
+.ojo-detalle-pie{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:11px}
+.ojo-detalle-info{padding:9px 10px;background:#1d2a31;border-radius:8px;border-left:3px solid #4db9a4;min-width:0}
+.ojo-detalle-info strong{display:block;color:#f1f7f9;font-size:12px}
+.ojo-detalle-info p{font-size:10px;line-height:1.55;color:#b4c8d3;margin:6px 0 0}
+.ojo-lista{max-height:97px;min-width:0;overflow:auto;display:flex;align-content:flex-start;gap:5px;flex-wrap:wrap;scrollbar-width:thin}
+.ojo-lista button{display:inline-flex;align-items:center;gap:5px;text-align:left;padding:5px 7px;font-size:10px;line-height:1.1;white-space:normal}
+.ojo-lista button.active{border-color:#66c5b0;background:#1d5145;color:white}
+.ojo-lista button i{display:block;width:8px;height:8px;flex:none;border:1px solid #ffffff77;border-radius:50%}
+.ojo-aviso{font-size:9px;line-height:1.35;color:#95a8b0}
+@media(max-width:720px){
+ .visor-ojo-detalle{inset:7px;padding:8px;gap:6px;grid-template-rows:auto minmax(90px,1fr) auto auto auto}
+ .ojo-detalle-encabezado strong{font-size:14px}
+ .ojo-detalle-encabezado span{display:none}
+ .ojo-detalle-controles{grid-template-columns:1fr;gap:5px}
+ .ojo-detalle-pie{grid-template-columns:1fr;gap:5px}
+ .ojo-detalle-info{padding:6px}
+ .ojo-detalle-info p{margin:2px 0 0}
+ .ojo-lista{max-height:60px}
+ .ojo-aviso{font-size:8px}
+}
+@media(max-height:680px){
+ .ojo-detalle-encabezado span,.ojo-aviso{display:none}
+ .ojo-lista{max-height:55px}
+}

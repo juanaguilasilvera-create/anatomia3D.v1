@@ -1,0 +1,2 @@
+// Solo lecturas reales de WebGLRenderer.info; FPS calculado a partir de los cuadros dibujados.
+export function crearEstadisticas(renderer,callback){let frames=0,start=performance.now();return {frame(){frames++;const now=performance.now();if(now-start>=1000){const fps=frames*1000/(now-start),info=renderer.info;callback({fps,triangles:info.render.triangles,draws:info.render.calls,lines:info.render.lines,textures:info.memory.textures,geometries:info.memory.geometries});frames=0;start=now;}}};}

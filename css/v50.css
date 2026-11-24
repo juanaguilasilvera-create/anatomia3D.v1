@@ -1,0 +1,37 @@
+/* V50: panel de estudio contextual sin duplicar el tutor ni los controles 3D. */
+.right.sidebar .inspector-tabs{position:relative;z-index:1;flex-shrink:0!important}
+.right.sidebar #inspectorContent{overflow-y:auto!important;overscroll-behavior:contain;scrollbar-gutter:stable;min-height:0!important}
+.estudio-rapido{border:1px solid #354a3b;border-radius:12px;padding:12px;background:#101a13;margin:0 0 14px;color:#e7f2e9;min-width:0}
+.estudio-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;gap:10px}
+.estudio-head strong{font-size:13px;display:block;letter-spacing:.01em}
+.estudio-head small{display:block;margin-top:4px;color:#9bb4a2;font-size:11px;line-height:1.45}
+.estudio-resumen{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:9px}
+.estudio-dato{min-width:0;padding:9px;border-radius:8px;background:#18251b;border:1px solid #304536}
+.estudio-dato-titulo{display:block;color:#9db7a4;font-weight:750;text-transform:uppercase;font-size:9px;letter-spacing:.06em;margin-bottom:4px}
+.estudio-dato-valor{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;overflow-wrap:anywhere;line-height:1.45;font-size:11px;color:#f0f6f0}
+.estudio-acciones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.estudio-acciones button{border-radius:8px;border:1px solid #3b6548;background:#203629;color:#f2fff5;cursor:pointer;padding:9px 4px;min-height:38px;min-width:0;font-size:11px;font-weight:700;white-space:normal}
+.estudio-acciones button:hover:not(:disabled),.estudio-referencia:hover{background:#315b3c}
+.estudio-acciones button[aria-pressed=true]{background:#206b38;border-color:#77c38c;color:#fff}
+.estudio-acciones button:disabled{opacity:.42;cursor:not-allowed}
+.estudio-coleccion{margin-top:11px;border-top:1px solid #344b3a;padding-top:10px}
+.estudio-coleccion summary{cursor:pointer;font-size:11px;font-weight:700;color:#dce9df;padding:3px 0}
+.estudio-coleccion summary span{font-size:10px;color:#afcbb3;background:#24412c;border-radius:20px;padding:2px 7px;margin-left:4px}
+.estudio-listas{display:grid;gap:11px;padding-top:12px}
+.estudio-listas strong{font-size:11px;color:#aed5b8;display:block;margin-bottom:7px}
+.estudio-elementos{display:flex;gap:6px;flex-wrap:wrap}
+.estudio-referencia{background:#223b2a;color:#e4eee6;border:1px solid #466e51;border-radius:7px;padding:7px 9px;text-align:left;font-size:11px;max-width:100%;overflow-wrap:anywhere;cursor:pointer}
+.estudio-vacio{font-size:11px!important;line-height:1.5;color:#a8baad!important;margin:0!important}
+.estudio-comparacion{margin-top:12px;border:1px solid #456149;border-radius:9px;padding:10px;background:#132119}
+.estudio-comparacion[hidden]{display:none!important}
+.estudio-comparacion h4{font-size:12px;margin:0 0 10px;color:#d7f0df}
+.estudio-comparador{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.estudio-comparador-ficha{padding:9px;background:#1d3022;border-radius:7px;overflow-wrap:anywhere}
+.estudio-comparador-ficha strong{font-size:11px;line-height:1.4;display:block;margin-bottom:6px}
+.estudio-comparador-ficha p{font-size:10px!important;line-height:1.5!important;color:#d2e1d5!important;margin:6px 0!important}
+.estudio-rapido :is(button,summary):focus-visible{outline:2px solid #93dea7;outline-offset:2px}
+body[data-theme=clinico] .estudio-rapido{background:#eaf2ec;color:#20372a;border-color:#a2baa6}
+body[data-theme=clinico] .estudio-dato,body[data-theme=clinico] .estudio-comparacion,body[data-theme=clinico] .estudio-comparador-ficha{background:#fff;color:#20372a;border-color:#c5d5c7}
+body[data-theme=clinico] .estudio-dato-valor,body[data-theme=clinico] .estudio-head strong,body[data-theme=clinico] .estudio-coleccion summary,body[data-theme=clinico] .estudio-comparacion h4{color:#1d3022}
+body[data-theme=clinico] .estudio-head small,body[data-theme=clinico] .estudio-dato-titulo,body[data-theme=clinico] .estudio-comparador-ficha p,body[data-theme=clinico] .estudio-vacio{color:#435d49!important}
+@media(max-width:450px){.estudio-rapido{padding:10px}.estudio-comparador{grid-template-columns:1fr}}
