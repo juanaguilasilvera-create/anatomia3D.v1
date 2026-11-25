@@ -14,3 +14,5 @@ La ficha describe la selección y permite consultar datos geométricos, referenc
 
 ## 5. Modelos, mantenimiento y pruebas
 Conserva `modelos/`, `js/`, `css/app.css`, `creditos/` y `herramientas/`. Consulta `documentacion/GUIA.md` y `documentacion/PRUEBAS.md`.
+
+Los GLB profesionales no se incluyen en el ZIP. `INSTALAR_MODELOS_ANATOMICOS.bat` descarga los archivos disponibles y actualiza `modelos/disponibles.json`. Si copias un GLB manualmente, ejecuta `python herramientas/instalar_modelos.py --verificar` para actualizar ese inventario. Live Server solo intenta rutas locales registradas; si no hay GLB, se usan fuentes remotas y, si no están disponibles, el atlas incluido. El servidor de `INICIAR_LABORATORIO_WINDOWS.bat` también puede descargarlos bajo demanda.

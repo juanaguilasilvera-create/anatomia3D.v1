@@ -7,11 +7,12 @@ CAPAS=('skeletal','joints','muscular','cardiovascular','lymphatic','nervous','vi
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--verificar',action='store_true')
-    p.add_argument('--capas',nargs='+',choices=(*CAPAS,'femenino'),default=CAPAS)
+    p.add_argument('--capas',nargs='+',choices=(*CAPAS,'femenino','dragon','zorro'),default=CAPAS)
     args=p.parse_args();manager=AssetManager()
     if not args.verificar:
         with ThreadPoolExecutor(max_workers=2) as ex:
             list(ex.map(manager.obtener,args.capas))
+    manager.guardar_inventario()
     faltan=[]
     for key in args.capas:
         ok=manager.disponible(key)

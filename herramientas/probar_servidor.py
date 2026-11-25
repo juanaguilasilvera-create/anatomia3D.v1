@@ -77,6 +77,10 @@ class TestModels(unittest.TestCase):
                 self.assertEqual(contenido[:4],b'glTF')
             with urllib.request.urlopen(f'http://127.0.0.1:{server.server_port}/api/estado-modelos',timeout=8) as response:
                 self.assertTrue(json.load(response)['modelos']['zorro']['disponible'])
+            with urllib.request.urlopen(f'http://127.0.0.1:{server.server_port}/modelos/disponibles.json',timeout=8) as response:
+                inventario=json.load(response)
+                self.assertTrue(inventario['descargaAutomatica'])
+                self.assertIn('modelos/criaturas/zorro.glb',inventario['archivos'])
         finally:
             server.shutdown();server.server_close();thread.join(timeout=3)
             ruta.unlink(missing_ok=True)
@@ -84,7 +88,9 @@ class TestModels(unittest.TestCase):
     def test_ausentes_sin_crear_archivos_falsos(self):
         with tempfile.TemporaryDirectory() as d:
             manager=app.AssetManager(Path(d))
-            self.assertEqual(len(manager.estado()),9)
+            self.assertEqual(len(manager.estado()),10)
             self.assertFalse(any(x['disponible'] for x in manager.estado().values()))
+            manager.guardar_inventario()
+            self.assertEqual(json.loads((Path(d)/'modelos/disponibles.json').read_text()),{'archivos':[],'descargaAutomatica':False})
 
 if __name__=='__main__':unittest.main(verbosity=2)

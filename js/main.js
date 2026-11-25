@@ -1,3 +1,4 @@
+import {rutasModeloOpcional} from './disponibilidadModelos.js';
 import {auditarCobertura} from './coberturaSistemas.js';
 import {capasDisponibles} from './capasCuerpo.js';
 import {instalarModoDesarrollador} from './modoDesarrollador.js';
@@ -550,7 +551,9 @@ async function cambiarModelo(sexo,archivo=null){
   nuevo=sexo==='male'?atlasMasculino:atlasFemenino;
   if(sexo==='female'&&!nuevo){
    nuevo=new AtlasFemenino(api);if(archivo)blobUrl=URL.createObjectURL(archivo);
-   await nuevo.load((progreso,count)=>{$('progress').style.width=progreso+'%';$('progressText').textContent=progreso+'% · '+number(count)+' mallas';},blobUrl||(await fetch('./modelos/profesionales/femenino.glb',{method:'HEAD'}).then(r=>r.ok&&!r.headers.get('content-type')?.includes('text/html')?'./modelos/profesionales/femenino.glb':URL_HRA).catch(()=>URL_HRA)));
+   const fuentes=blobUrl?[blobUrl]:await rutasModeloOpcional('./modelos/profesionales/femenino.glb',[URL_HRA]);
+   let errorCarga;for(const fuente of fuentes){try{await nuevo.load((progreso,count)=>{$('progress').style.width=progreso+'%';$('progressText').textContent=progreso+'% · '+number(count)+' mallas';},fuente);errorCarga=null;break;}catch(e){errorCarga=e;}}
+   if(errorCarga)throw errorCarga;
    atlasFemenino=nuevo;
   }
   atlas.clearSelection();atlas.setActive(false);atlas=nuevo;atlas.setActive(true);
@@ -973,8 +976,7 @@ function configurarModelosIntegrados(){
     mensaje('Abriendo '+datos.nombre+' desde GitHub…');
     // El archivo local se obtiene automáticamente mediante el servidor del laboratorio.
     // Cuando se abre desde Live Server, se usa la fuente pública como respaldo.
-    let ok=await especies.cargar(datos.urlLocal,datos.nombre,datos.tipo);
-    if(!ok&&solicitud===solicitudModelo)ok=await especies.cargar(datos.url,datos.nombre,datos.tipo);
+    let ok=false;for(const fuente of await rutasModeloOpcional(datos.urlLocal,[datos.url])){if(solicitud!==solicitudModelo)return;ok=await especies.cargar(fuente,datos.nombre,datos.tipo);if(ok)break;}
     if(solicitud!==solicitudModelo)return;
     if(!ok){regresarAlCuerpo();mensaje(datos.nombre+' no pudo cargarse. El cuerpo humano sigue disponible. Revisa la conexión.');return;}
     $('viewName').textContent=datos.nombre.toUpperCase();

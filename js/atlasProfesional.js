@@ -1,3 +1,4 @@
+import {rutasModeloOpcional} from './disponibilidadModelos.js';
 import {desplazamientoCapa} from './capasCuerpo.js';
 import {crearLevitacionExterna} from './levitacionExterna.js';
 /* Atlas profesional . Fuente GLB: Z-Anatomy / nqwrc/3d-anatomy.
@@ -81,7 +82,7 @@ export function coincideFiltro(entrada,filtro){
  if(filtro==='connective')return /ligament|tendon|fascia|aponeurosis|retinaculum/i.test(entrada.nombre);
  return entrada.sistema===filtro||(['visceral','cardiovascular','joints'].includes(filtro)&&entrada.origen===filtro);
 }
-function urls(archivo){return [`./modelos/profesionales/${archivo}`,ORIGEN+archivo,CDN+archivo,'https://raw.githubusercontent.com/nqwrc/3d-anatomy/master/public/models/'+archivo];}
+function urls(archivo){return rutasModeloOpcional(`./modelos/profesionales/${archivo}`,[ORIGEN+archivo,CDN+archivo,'https://raw.githubusercontent.com/nqwrc/3d-anatomy/master/public/models/'+archivo]);}
 export function crearAtlasProfesional({api,atlasClasico,alSeleccionar,alEstado,alSistemaAusente=()=>{},alVolverCuerpo=()=>{}}){
  const draco=new DRACOLoader();draco.setDecoderPath((window.__LAB_THREE_BASE||'https://cdn.jsdelivr.net/npm/three@0.178.0/')+'examples/jsm/libs/draco/gltf/');
  const loader=new GLTFLoader().setDRACOLoader(draco).setMeshoptDecoder(MeshoptDecoder);
@@ -107,7 +108,7 @@ export function crearAtlasProfesional({api,atlasClasico,alSeleccionar,alEstado,a
  }
  async function cargarUno(conf){
   let causa='archivo no disponible',gltf=null;
-  for(const url of urls(conf.archivo)){
+  for(const url of await urls(conf.archivo)){
    try{
     gltf=await loader.loadAsync(url);if(!gltf?.scene)throw Error('El archivo GLB no contiene escena');
     break;

@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {ordenarRutasOpcionales,rutasModeloOpcional} from '../js/disponibilidadModelos.js';
+const local='./modelos/profesionales/skeletal.glb', remoto='https://example.org/skeletal.glb';
+const inv=JSON.parse(readFileSync(new URL('../modelos/disponibles.json',import.meta.url)));
+assert.deepEqual(ordenarRutasOpcionales(inv,local,[remoto]),[remoto]);
+assert.deepEqual(ordenarRutasOpcionales({archivos:[local.slice(2)]},local,[remoto]),[local,remoto]);
+assert.deepEqual(ordenarRutasOpcionales({archivos:[],descargaAutomatica:true},local,[remoto]),[local,remoto]);
+assert.deepEqual(await rutasModeloOpcional(local,[remoto],async(url)=>{assert(url.pathname.endsWith('/modelos/disponibles.json'));return {ok:true,json:async()=>inv};}),[remoto]);
+assert.deepEqual(await rutasModeloOpcional(local,[remoto],async()=>{throw Error('Sin conexión');}),[remoto]);
+for(const nombre of ['joints','muscular','cardiovascular','lymphatic','nervous','visceral','femenino'])assert.deepEqual(ordenarRutasOpcionales(inv,`./modelos/profesionales/${nombre}.glb`,[remoto]),[remoto]);
+for(const nombre of ['dragon','zorro'])assert.deepEqual(ordenarRutasOpcionales(inv,`./modelos/criaturas/${nombre}.glb`,[remoto]),[remoto]);
+console.log('OK: 10 archivos opcionales, inventario ausente/vacío, instalado y servidor automático.');

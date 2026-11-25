@@ -1,16 +1,7 @@
-ATLAS PROFESIONAL Z-ANATOMY — LABORATORIO V22
+MODELOS PROFESIONALES OPCIONALES
 
-No tienes que importar archivos GLB ni ejecutar un instalador aparte.
-
-Usa INICIAR_LABORATORIO_WINDOWS.bat, selecciona un sistema y el servidor
-intentará reutilizar una copia validada de una versión anterior o descargarla
-automáticamente desde el repositorio original.
-
-Archivos esperados (se guardan aquí cuando se obtienen):
- skeletal.glb, joints.glb, muscular.glb, cardiovascular.glb,
- lymphatic.glb, nervous.glb, visceral.glb
-
-El cuerpo humano clásico completo está empaquetado por separado en
-modelos/atlas.json y body-*.bin.gz.
-
-Fuentes y condiciones no comerciales: creditos/FUENTES_V22.md
+Los siete GLB no forman parte del ZIP. El atlas BodyParts3D incluido funciona sin ellos.
+Para instalar modelos adicionales, ejecuta INSTALAR_MODELOS_ANATOMICOS.bat.
+Si copias archivos manualmente, ejecuta python herramientas/instalar_modelos.py --verificar.
+El inventario modelos/disponibles.json indica las rutas locales validadas.
+Fuentes y condiciones: creditos/FUENTES_V22.md.

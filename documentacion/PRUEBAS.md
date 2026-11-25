@@ -15,3 +15,8 @@ node --experimental-default-type=module pruebas/verificar_fichas.mjs
 ```
 
 Pendiente: pruebas visuales reales con Three.js, WebGL y Live Server en Windows. El ZIP no incluye la biblioteca Three.js local; utilizar el instalador o la carga CDN prevista. Las comprobaciones anteriores no garantizan la animación visual ni todos los escenarios de interacción.
+
+### Modelos opcionales
+- `node pruebas/verificar_modelos_opcionales.mjs`: rutas para diez GLB, archivos ausentes, instalados y servidor automático.
+- `python herramientas/probar_servidor.py`: validación de GLB, reutilización, inventario y respuesta HTTP con archivos sintéticos temporales.
+- No se han descargado ni validado visualmente los GLB remotos en este entorno.

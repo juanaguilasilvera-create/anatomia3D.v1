@@ -96,6 +96,15 @@ class AssetManager:
     def estado(self):
         return {key:{'disponible':self.disponible(key), 'archivo':ARCHIVOS[key],
                      'error':self.errores.get(key)} for key in ARCHIVOS}
+    def inventario(self, automatico=False):
+        return {'archivos':[ARCHIVOS[k] for k in ARCHIVOS if self.disponible(k)],
+                'descargaAutomatica':bool(automatico)}
+    def guardar_inventario(self):
+        ruta=self.base/'modelos'/'disponibles.json'
+        ruta.parent.mkdir(parents=True,exist_ok=True)
+        temporal=ruta.with_suffix('.tmp')
+        temporal.write_text(json.dumps(self.inventario(),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        os.replace(temporal,ruta)
     def reutilizar_version_anterior(self,key: str) -> bool:
         # Recuperar los seis archivos que el usuario ya instaló en V19/V20,
         # si esas carpetas están junto a la nueva versión. Nunca copiar un
@@ -162,6 +171,11 @@ class AppHandler(SimpleHTTPRequestHandler):
         super().__init__(*args,directory=str(BASE),**kwargs)
     def do_GET(self):
         path=self.path.split('?',1)[0].lstrip('/')
+        if path == 'modelos/disponibles.json':
+            datos=json.dumps(MANAGER.inventario(automatico=True)).encode('utf-8')
+            self.send_response(200);self.send_header('Content-Type','application/json; charset=utf-8')
+            self.send_header('Content-Length',str(len(datos)));self.send_header('Cache-Control','no-store');self.end_headers();self.wfile.write(datos)
+            return
         if path == 'api/estado-modelos':
             datos=json.dumps({'modelos':MANAGER.estado()},ensure_ascii=False).encode('utf-8')
             self.send_response(200);self.send_header('Content-Type','application/json; charset=utf-8')
@@ -198,7 +212,7 @@ def main(argv=None):
             print('No se pudo abrir el servidor:',e)
             return 1
     url=f'http://127.0.0.1:{servidor.server_port}/index.html'
-    print('LABORATORIO ANATÓMICO 3D — V31')
+    print('LABORATORIO ANATÓMICO 3D')
     print('Dirección:',url)
     print('Los modelos GLB se obtienen al seleccionarlos y se guardan localmente.')
     print('Pulsa Ctrl+C en esta ventana para cerrar el servidor.')
