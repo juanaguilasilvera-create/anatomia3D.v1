@@ -1,4 +1,4 @@
-/* V47: catálogo local para todas las mallas BodyParts3D 4.0.
+/* catálogo local para todas las mallas BodyParts3D 4.0.
    Campos de geometría/nomenclatura = atlas de origen.
    Tipo, región y función = clasificación orientativa derivada del nombre.
    NO equivalen a validación clínica individual. */

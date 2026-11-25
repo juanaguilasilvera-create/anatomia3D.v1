@@ -21,7 +21,7 @@ export function crearEnfoqueCamara(api){
   // Cabe en altura y ancho; no cortar los huesos largos.
   const dY=Math.max(size.y,.035)/(2*Math.tan(fov/2));
   const dX=Math.max(size.x,size.z,.035)/(2*Math.tan(horizontal/2));
-  const distancia=THREE.MathUtils.clamp(Math.max(dY,dX)*1.47,.21,6.0);
+  const distancia=THREE.MathUtils.clamp(Math.max(dY,dX)*1.65,api.controls.minDistance,6.0);
   animar(centro,centro.clone().addScaledVector(direccion,distancia),720);
  }
  function enfocarSistema(atlas, sistemas){

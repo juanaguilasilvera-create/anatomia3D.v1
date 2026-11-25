@@ -1,6 +1,6 @@
 import {desplazamientoCapa} from './capasCuerpo.js';
 import {crearLevitacionExterna} from './levitacionExterna.js';
-/* Atlas profesional V17. Fuente GLB: Z-Anatomy / nqwrc/3d-anatomy.
+/* Atlas profesional . Fuente GLB: Z-Anatomy / nqwrc/3d-anatomy.
    Las mallas se obtienen del proyecto original (en línea o instaladas); no se
    crean falsas estructuras. Esta vista usa las siete capas en el mismo sistema
    de coordenadas, con control de errores y respaldo al atlas local. */

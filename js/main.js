@@ -98,12 +98,12 @@ function restaurarAtlasLocal(mensaje=''){
  updateStatus();
 }
 function chooseSystem(system,{show=true,filterScene=true}={}){
- if(system!=='sensory')ojoDetallado?.cerrar();
+ ojoDetallado?.cerrar();
  desarrollador?.retirar();
  if(system==='whole'){regresarAlCuerpo('todos');return;}
  if(system==='integumentary'){regresarAlCuerpo('piel');return;}
  modoCuerpo=null;resetSeparacion();
- if(show)registrar29({tipo:"sistema",id:system});
+ if(show)registrarNavegacion({tipo:"sistema",id:system});
  if($('modeloIntegrado')&&SISTEMAS_INTEGRADOS.some(s=>s.id===system))$('modeloIntegrado').value='sistema:'+system;
  if(!GUIAS[system]&&!['circulatory'].includes(system))return;
  if(profesional?.activo){
@@ -262,9 +262,10 @@ function renderGuide(){
  renderPartGuide();
 }
 function renderPartGuide(){
- const p=atlas?.selectedPart();
  const bloque=$('partGuide');
- if(!p){bloque.innerHTML='<p class="ficha-sin-seleccion">Selecciona una estructura para descubrir su descripción, función y relaciones anatómicas.</p>';return;}
+ if(profesional?.activo)return;
+ const p=atlas?.selectedPart();
+ if(!p){const g=GUIAS[chosenSystem];bloque.innerHTML=g?`<h3>${escapar(g.titulo)}</h3><p>${escapar(g.resumen)}</p><h4>Funciones principales</h4><ul>${g.funciones.map(f=>`<li>${escapar(f)}</li>`).join('')}</ul><h4>Relaciones anatómicas</h4><p>${escapar(g.relaciones)}</p><p>Selecciona una estructura para consultar su ficha individual.</p>`:'<p>Selecciona una estructura anatómica.</p>';return;}
  const ficha=fichaComponente(p);
  if(p.numeroMallas){
   bloque.innerHTML=`<div class="guide-kicker">CONJUNTO ANATÓMICO</div><h3>${escapar(ficha.nombre)}</h3><p>${escapar(p.nota||'Agrupación visual de componentes originales.')}</p><details class="origen-anatomico"><summary>Datos del modelo</summary><p>Conjunto de ${number(p.numeroMallas)} mallas; no es un órgano adicional.</p></details>`;
@@ -273,7 +274,7 @@ function renderPartGuide(){
  const fila=(titulo,valor,clase='')=>valor&&(!/^(No especificad|No documentad)/i.test(valor))?`<section class="ficha-seccion ${clase}"><h4>${escapar(titulo)}</h4><p>${escapar(valor)}</p></section>`:'';
  const apartado=(titulo,valor)=>valor?`<div class="ficha-mini"><span>${escapar(titulo)}</span><strong>${escapar(valor)}</strong></div>`:'';
  bloque.innerHTML=`
-  <div class="ficha-v51-cabecera"><span class="guide-kicker">INFORMACIÓN ANATÓMICA</span><h3>${escapar(ficha.nombre)}</h3><div class="ficha-claves">${apartado('Sistema',ficha.grupo)}${apartado('Estructura',ficha.tipo)}${apartado('Ubicación',ficha.ubicacion)}</div></div>
+  <div class="ficha-cabecera-ficha"><span class="guide-kicker">INFORMACIÓN ANATÓMICA</span><h3>${escapar(ficha.nombre)}</h3><div class="ficha-claves">${apartado('Sistema',ficha.grupo)}${apartado('Estructura',ficha.tipo)}${apartado('Ubicación',ficha.ubicacion)}</div></div>
   ${fila('Qué es',ficha.descripcion,'ficha-principal')}
   ${fila(ficha.nivel==='general de categoría'?'Función del tipo de estructura':'Qué hace',ficha.funcion,'ficha-funcion')}
   ${fila('Organización',ficha.estructura!==ficha.descripcion?ficha.estructura:'')}
@@ -307,10 +308,10 @@ function renderPartBrowser(){
  $('moreParts').hidden=shown.length>=found.length;
  $('moreParts').textContent=`Mostrar más (${number(found.length-shown.length)} restantes)`;
 }
-let historial29=[],actual29=null,restaurando29=false;
-function registrar29(item){if(!item||restaurando29)return;if(actual29&&JSON.stringify(actual29)!==JSON.stringify(item))historial29.push(actual29);if(historial29.length>50)historial29.shift();actual29=item;$('historialAnterior').disabled=!historial29.length;}
+let historialNavegacion=[],actualNavegacion=null,restaurandoNavegacion=false;
+function registrarNavegacion(item){if(!item||restaurandoNavegacion)return;if(actualNavegacion&&JSON.stringify(actualNavegacion)!==JSON.stringify(item))historialNavegacion.push(actualNavegacion);if(historialNavegacion.length>50)historialNavegacion.shift();actualNavegacion=item;$('historialAnterior').disabled=!historialNavegacion.length;}
 function openInspector(name){
- if(name==='tutor')name='anatomia'; // V44: el tutor ya esta integrado en la ficha.
+ if(name==='tutor')name='anatomia'; // el tutor ya esta integrado en la ficha.
  inspectorTab=name;
  $$('[data-itab]').forEach(b=>{
   const active=b.dataset.itab===name;
@@ -325,7 +326,7 @@ function openInspector(name){
 }
 function updateStatus(){if(desarrollador?.activo){$('visibleParts').textContent='Modelo importado · geometría sin verificar';return;}if(profesional?.activo){$('visibleParts').textContent=`${number(profesional.seleccion?1:profesional.total)} estructuras del modelo avanzado`;return;}if(!atlas)return;$('visibleParts').textContent=`${number(atlas.visibleCount())} / ${number(atlas.parts.length)}`;}
 function mostrarImportado(e){
- if(!e)return;inspectorEstudio?.actualizarExterno({nombre:e.nombre,grupo:'Modelo importado',tipo:'Submalla 3D',descripcion:'Modelo externo de GitHub, sin identificación anatómica validada.',vertices:e.vertices,triangulos:e.triangulos});updateStatus(); $('partName').textContent=e.nombre;$('detalleSistemaActual').textContent='MODELO IMPORTADO';$('selectedId').textContent='GitHub · '+e.id;$('partDescription').textContent='Submalla del archivo importado. Su identidad anatómica no está verificada.';$('partGuide').textContent=$('partDescription').textContent;$('partesSeleccion29').hidden=true;$('partTags').replaceChildren();$('partCallout').hidden=true;$('calloutConnector').hidden=true;$('mathSelectedName').textContent=e.nombre;$('mathPartId').textContent='GitHub';$('mathVertexCount').textContent=number(e.vertices)+' vértices';$('mathFaceCount').textContent=number(e.triangulos)+' triángulos';$('specGrid').textContent=number(e.vertices)+' vértices · '+number(e.triangulos)+' triángulos';vista2d?.setExternalSelection({name:e.nombre,titulo2d:e.nombre,sinReferencias:true},'Modelo importado');tutor?.explicarExterno({seleccion:e.nombre,especie:'GitHub'});openInspector('anatomia');fijarPaneles(false,true);updateMath();updateAlgorithm();
+ if(!e)return;inspectorEstudio?.actualizarExterno({nombre:e.nombre,grupo:'Modelo importado',tipo:'Submalla 3D',descripcion:'Modelo externo de GitHub, sin identificación anatómica validada.',vertices:e.vertices,triangulos:e.triangulos});updateStatus(); $('partName').textContent=e.nombre;$('detalleSistemaActual').textContent='MODELO IMPORTADO';$('selectedId').textContent='GitHub · '+e.id;$('partDescription').textContent='Submalla del archivo importado. Su identidad anatómica no está verificada.';$('partGuide').textContent=$('partDescription').textContent;$('partesSeleccion').hidden=true;$('partTags').replaceChildren();$('calloutName').textContent=e.nombre;$('calloutSystem').textContent='Modelo importado';$('partCallout').hidden=false;$('calloutConnector').hidden=false;$('mathSelectedName').textContent=e.nombre;$('mathPartId').textContent='GitHub';$('mathVertexCount').textContent=number(e.vertices)+' vértices';$('mathFaceCount').textContent=number(e.triangulos)+' triángulos';$('specGrid').textContent=number(e.vertices)+' vértices · '+number(e.triangulos)+' triángulos';vista2d?.setExternalSelection({name:e.nombre,titulo2d:e.nombre,sinReferencias:true},'Modelo importado');tutor?.explicarExterno({seleccion:e.nombre,especie:'GitHub'});openInspector('anatomia');fijarPaneles(false,true);updateMath();updateAlgorithm();
 }
 function updateMath(){
  if(!currentMath){$('mathDisplay').innerHTML='<p>Selecciona Valores, Matrices, Pasos, Teoría o Código para consultar el análisis.</p>';return;}
@@ -424,8 +425,8 @@ function syncTransforms(){if(!atlas)return;$$('[data-transform]').forEach(input=
 // Solo existe un visor WebGL: seleccionar acerca la cámara, no abre otra ventana.
 function seleccionCambiada(part){
  if(part){solicitudModelo++;$('modeloIntegrado').disabled=false;}
- if(part)registrar29(part.numeroMallas&&GRUPOS_3D.some(g=>'conjunto-'+g.id===part.id)?{tipo:'grupo',id:part.id.replace('conjunto-','')}:{tipo:'pieza',id:atlas.selected});
- const partes=$('partesSeleccion29');partes.hidden=!atlas.selectionIndices?.length;partes.innerHTML=atlas.selectionIndices?.length?'<h4>Partes del órgano seleccionado</h4>'+atlas.selectionIndices.map(i=>`<button data-subparte29="${i}">${escapar(nombreAnatomico(atlas.parts[i]).espanol)}</button>`).join(''):'';
+ if(part)registrarNavegacion(part.numeroMallas&&GRUPOS_3D.some(g=>'conjunto-'+g.id===part.id)?{tipo:'grupo',id:part.id.replace('conjunto-','')}:{tipo:'pieza',id:atlas.selected});
+ const partes=$('partesSeleccion');partes.hidden=!atlas.selectionIndices?.length;partes.innerHTML=atlas.selectionIndices?.length?'<h4>Partes del órgano seleccionado</h4>'+atlas.selectionIndices.map(i=>`<button data-subparte="${i}">${escapar(nombreAnatomico(atlas.parts[i]).espanol)}</button>`).join(''):'';
  if(part){modoCuerpo=null;resetSeparacion();$('btnWhole').classList.remove('active');$('btnSkin').classList.remove('active');openInspector('anatomia');}
  syncTransforms();updateDetails();
  vista2d?.setSelected(part||null);
@@ -434,8 +435,6 @@ function seleccionCambiada(part){
   $('seleccionActivaNombre').textContent=nombreAnatomico(part).espanol;
   $('btnFloat').classList.toggle('active',atlas.liftEnabled);
   $('btnFloat').setAttribute('aria-pressed',String(atlas.liftEnabled));
-  $('alternarLevitacion').textContent=atlas.liftEnabled?'Detener levitación':'Activar levitación';
-  $('alternarLevitacion').setAttribute('aria-pressed',String(atlas.liftEnabled));
   $('barraSeleccion').hidden=false;
   $('btnIsolate').classList.add('active');
   $('btnIsolate').textContent='◎ Solo pieza';
@@ -455,7 +454,7 @@ function regresarAlCuerpo(modo='todos'){ojoDetallado?.cerrar();
  if(!atlas)return;desarrollador?.retirar();
  solicitudModelo++; if($('modeloIntegrado'))$('modeloIntegrado').disabled=false;document.body.classList.remove('cambiando-modelo');
  modo=modo==='piel'?'piel':'todos';
- registrar29({tipo:'cuerpo',modo});
+ registrarNavegacion({tipo:'cuerpo',modo});
  if(profesional?.activo)restaurarAtlasLocal();
  if(especies?.activo())especies.cambiarHumano();
  if(vista2d?.mode==='2d')vista2d.setMode('3d');
@@ -492,7 +491,8 @@ function elegidoSinBusqueda(){
  $('partSearch').value='';buscador?.cerrar();
 }
 function focusSelected(){if(atlas?.selectionMesh)enfoque?.enfocar(atlas);}
-function choosePart(index,{zoom=false,fuenteLocal=false}={}){
+function choosePart(index,{zoom=false,fuenteLocal=false,desdeOjo=false}={}){
+ if(!desdeOjo){ojoDetallado?.cerrar();desarrollador?.retirar();resetearCorte();}
  if(!atlas?.parts[index])return;
  solicitudModelo++; $('modeloIntegrado').disabled=false;document.body.classList.remove('cambiando-modelo');
  if(!atlas.pickMeshes[index]&&!profesional?.activo){toast('La estructura no está disponible en la geometría cargada.');return;}
@@ -504,6 +504,7 @@ function choosePart(index,{zoom=false,fuenteLocal=false}={}){
  if(especies?.activo())especies.cambiarHumano();
  if(vista2d?.mode==='2d')vista2d.setMode('3d');
  if(!atlas.visible.has(atlas.parts[index].system)&&!atlas.isolated){atlas.toggleSystem(atlas.parts[index].system,true);syncLayers();}
+ atlas.setActive(true);
  if(!atlas.select(index))return;
  if(rayVisible)rays.update(atlas.selectionMesh);
  // La selección siempre enfoca la pieza en la misma escena.
@@ -511,6 +512,10 @@ function choosePart(index,{zoom=false,fuenteLocal=false}={}){
  openInspector('anatomia');syncTransforms();updateDetails();fijarPaneles(false,true);toast('Seleccionado: '+nombreAnatomico(atlas.parts[index]).espanol);
 }
 function chooseGroup(id,{fuenteLocal=false}={}){
+ ojoDetallado?.cerrar();
+ desarrollador?.retirar();
+ ++solicitudModelo;
+ resetearCorte();
  if(id==='ojos'&&ojoDetallado){if(chosenSystem!=='sensory')chooseSystem('sensory');ojoDetallado.abrir();openInspector('anatomia');fijarPaneles(false,true);return true;}
  if(!atlas)return false;
  ++solicitudModelo;$('modeloIntegrado').disabled=false;document.body.classList.remove('cambiando-modelo');
@@ -521,6 +526,7 @@ function chooseGroup(id,{fuenteLocal=false}={}){
  const indices=indicesDeGrupo(atlas.parts,id);
  if(!indices.length){toast('Este conjunto no dispone de geometría 3D en el atlas actual');return false;}
  if(indices.some(i=>!atlas.pickMeshes[i])){toast('El conjunto no está completamente cargado.');return false;}
+ atlas.setActive(true);
  if(!atlas.selectGroup(id,def.nombre,indices,def.nota)){toast('Las mallas todavía no han terminado de cargar');return false;}
  openInspector('anatomia');fijarPaneles(false,true);
  vista2d?.setSelected(atlas.selectionPart||atlas.selectedPart?.()||null);tutor?.explicarSeleccion?.(atlas.selectionPart||atlas.selectedPart?.()||null);
@@ -583,10 +589,10 @@ function setupButtons(){
  // El acceso al tutor abre sus herramientas; la narración solo comienza al pulsar Explicar.
  $('explicarSeleccionDirecto')?.addEventListener('click',()=>{tutor?.explicarActualEnVoz?.();});
  $('systemGuide')?.addEventListener('click',e=>{if(e.target.closest('[data-abrir-ojo]'))ojoDetallado?.abrir();});
- $('historialAnterior').onclick=()=>{const item=historial29.pop();if(!item)return;restaurando29=true;try{if(item.tipo==='pieza')choosePart(item.id);else if(item.tipo==='grupo')chooseGroup(item.id);else if(item.tipo==='sistema')chooseSystem(item.id);else regresarAlCuerpo(item.modo);actual29=item;}finally{restaurando29=false;$('historialAnterior').disabled=!historial29.length;}};
+ $('historialAnterior').onclick=()=>{const item=historialNavegacion.pop();if(!item)return;restaurandoNavegacion=true;try{if(item.tipo==='pieza')choosePart(item.id);else if(item.tipo==='grupo')chooseGroup(item.id);else if(item.tipo==='sistema')chooseSystem(item.id);else regresarAlCuerpo(item.modo);actualNavegacion=item;}finally{restaurandoNavegacion=false;$('historialAnterior').disabled=!historialNavegacion.length;}};
  $('restablecerVista29').onclick=()=>{if(profesional?.activo||especies?.activo()){api.camView('frente');return;}if(atlas?.selectionMesh){atlas.resetTransform();syncTransforms();focusSelected();updateDetails();}else api.camView('frente');};
- $('pantallaCompleta29').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){toast('Pantalla completa no disponible: '+e.message);}};
- $('partesSeleccion29').onclick=e=>{const b=e.target.closest('[data-subparte29]');if(b)choosePart(Number(b.dataset.subparte29));const pro=e.target.closest('[data-subparte-pro]');if(pro)profesional?.seleccionar(Number(pro.dataset.subpartePro));};
+ $('pantallaCompleta').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){toast('Pantalla completa no disponible: '+e.message);}};
+ $('partesSeleccion').onclick=e=>{const b=e.target.closest('[data-subparte]');if(b)choosePart(Number(b.dataset.subparte));const pro=e.target.closest('[data-subparte-pro]');if(pro)profesional?.seleccionar(Number(pro.dataset.subpartePro));};
  $('abrirMatematicas')?.addEventListener('click',()=>{
   const abrir=!$('app').classList.contains('show-left');
   fijarPaneles(abrir,window.innerWidth>=1150&&$('app').classList.contains('show-right'));
@@ -647,8 +653,6 @@ function setupButtons(){
    atlas.setLift(!atlas.liftEnabled);
    $('btnFloat').classList.toggle('active',atlas.liftEnabled);
    $('btnFloat').setAttribute('aria-pressed',String(atlas.liftEnabled));
-   $('alternarLevitacion').textContent=atlas.liftEnabled?'Detener levitación':'Activar levitación';
-   $('alternarLevitacion').setAttribute('aria-pressed',String(atlas.liftEnabled));
    if(preferencias?.valores?.movimiento&&atlas.liftEnabled){
     toast('Desactiva «Reducir animaciones» para ver la levitación.');
    }else if(!atlas.selectionMesh&&!profesional?.seleccion&&!desarrollador?.seleccion){
@@ -658,7 +662,6 @@ function setupButtons(){
    }
  };
  $('btnFloat').addEventListener('click',cambiarLevitacion);
- $('alternarLevitacion').addEventListener('click',cambiarLevitacion);
  $('floatStrength').addEventListener('input',e=>{atlas.setLiftAmount(Number(e.target.value)/100);$('floatValue').textContent=e.target.value+'%';});
  const aplicarCorte=()=>{if(!atlas)return;const args=[cutting,Number($('cutOffset').value)/100,$('cutAxis').value,$('cutInvert').checked];const b=desarrollador?.activo?desarrollador.bounds():profesional?.activo?profesional.boundsVisibles():especies?.activo()?especies.getBounds():null;if(b&&!b.isEmpty())api.setCut(...args,b.getCenter(new THREE.Vector3()));else atlas.setCut(...args);};
  $('btnCut').addEventListener('click',()=>{cutting=!cutting;aplicarCorte();$('btnCut').classList.toggle('active',cutting);toast(cutting?'Plano de corte activo; el corte no rellena las superficies interiores':'Plano de corte desactivado');});
@@ -694,19 +697,22 @@ function setupButtons(){
  $('lightY').addEventListener('input',e=>{api.key.position.y=Number(e.target.value)/100;$('lightYValue').textContent=api.key.position.y.toFixed(2);updateMath();});
  document.addEventListener('keydown',e=>{if(e.defaultPrevented||['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)||preferencias?.abierto())return;if(e.key.toLowerCase()==='f')focusSelected();if(e.key==='Escape'){regresarAlCuerpo();fijarPaneles(false,false);if(atlas.isolated){atlas.setIsolate(false);$('btnIsolate').classList.remove('active');}}});
 }
-// V12: la etiqueta queda fuera de la silueta 3D y una línea fina apunta
+// la etiqueta queda fuera de la silueta 3D y una línea fina apunta
 // al borde REAL de la pieza proyectada. No se agrega geometría decorativa.
 const _calloutBox=new THREE.Box3(); // initialized lazily below (THREE ya está importado)
 function updateCallout(){
  const e=$('partCallout'),svg=$('calloutConnector');
- const externa=especies?.activo()===true;
- const mesh=externa?especies.seleccionMesh():atlas?.selectionMesh;
- if(!mesh||(!externa&&(!atlas.selectedPart()||!atlas.active))){e.hidden=true;svg.hidden=true;return;}
- const shell=$('viewShell'),viewer=$('viewer');
+ const ocular=ojoDetallado?.activo(), pro=profesional?.activo, dev=desarrollador?.activo, especie=especies?.activo()===true;
+ const externa=ocular||pro||dev||especie;
+ const mesh=ocular?ojoDetallado.seleccionMesh():pro?profesional.seleccion?.mallas?.[0]:dev?desarrollador.seleccion?.mesh:especie?especies.seleccionMesh():atlas?.selectionMesh;
+ if(vista2d?.mode==='2d'||!mesh||(!externa&&(!atlas.selectedPart()||!atlas.active))){e.hidden=true;svg.hidden=true;return;}
+ const shell=$('viewShell'),viewer=ocular?ojoDetallado.elementoVista():$('viewer');
+ const camera=ocular?ojoDetallado.camara():api.camera;
  const shellRect=shell.getBoundingClientRect(),viewRect=viewer.getBoundingClientRect();
  const dx=viewRect.left-shellRect.left,dy=viewRect.top-shellRect.top;
  const w=shell.clientWidth,h=shell.clientHeight;
- const b=externa?_calloutBox.setFromObject(mesh):_calloutBox.copy(atlas.selectionBounds||atlas.boxes[atlas.selected]).applyMatrix4(mesh.matrixWorld);
+ const b=_calloutBox.makeEmpty();
+ for(const m of (pro&&!ocular?profesional.seleccion.mallas:[mesh])){m.updateWorldMatrix(true,false);b.union(new THREE.Box3().setFromObject(m));}
  const min=b.min,max=b.max;
  const vertices=[
   [min.x,min.y,min.z],[max.x,min.y,min.z],[min.x,max.y,min.z],[max.x,max.y,min.z],
@@ -714,7 +720,7 @@ function updateCallout(){
  ];
  let l=Infinity,r=-Infinity,t=Infinity,bt=-Infinity,validos=0;
  for(const [x,y,z] of vertices){
-  const v=new THREE.Vector3(x,y,z).project(api.camera);
+  const v=new THREE.Vector3(x,y,z).project(camera);
   if(!Number.isFinite(v.x)||v.z< -1||v.z>1)continue;
   const sx=dx+(v.x*.5+.5)*viewRect.width,sy=dy+(-v.y*.5+.5)*viewRect.height;
   l=Math.min(l,sx);r=Math.max(r,sx);t=Math.min(t,sy);bt=Math.max(bt,sy);validos++;
@@ -759,14 +765,14 @@ async function start(){
    if(profesional?.activo)profesional.actualizarLevitacion(now,delta,atlas?.liftEnabled,atlas?.liftAmount,preferencias?.valores.movimiento);
    if(desarrollador?.activo)desarrollador.actualizarLevitacion(now,delta,atlas?.liftEnabled,atlas?.liftAmount,preferencias?.valores.movimiento);
    enfoque?.actualizar(now);api.renderer.render(api.scene,api.camera);stats.frame();
-   if(!profesional?.activo&&!desarrollador?.activo&&(atlas?.selected>=0||especies?.seleccionMesh()) && vista2d?.mode!=='2d'){updateCallout();if(now-lastMathUpdate>360){lastMathUpdate=now;updateMath();if(rayVisible)rays.update(atlas.selectionMesh);}}
+   updateCallout();if(!profesional?.activo&&!desarrollador?.activo&&(atlas?.selected>=0||especies?.seleccionMesh()) && vista2d?.mode!=='2d'){if(now-lastMathUpdate>360){lastMathUpdate=now;updateMath();if(rayVisible)rays.update(atlas.selectionMesh);}}
   }requestAnimationFrame(frame);
   const response=await fetch('./modelos/atlas.json');if(!response.ok)throw Error('No se encuentra modelos/atlas.json: HTTP '+response.status);
   const manifest=await response.json();for(const p of manifest.parts)normalizarClasificacion(p);atlas=new Atlas3D(api,manifest);atlas.sex='male';atlasMasculino=atlas;window.laboratorioAtlas=atlas;aplicarMovimientoReducido(preferencias?.valores.movimiento===true);actualizarOpacidadPiel(1);
   atlas.onSelect=seleccionCambiada;
   atlas.onChange=()=>{updateStatus();};
-  ojoDetallado=crearOjoDetallado({host:$('viewShell'),obtenerAtlas:()=>atlas,avisar:toast,onSeleccionar:i=>{if(atlas?.parts[i])choosePart(i,{zoom:false,fuenteLocal:true});}});
-  buildSystems();buscador=crearBuscadorAnatomico({activarDesarrollador:desarrollador.activar,obtenerAtlas:()=>atlas,seleccionar:i=>choosePart(i,{zoom:true,fuenteLocal:true}),verSistema:id=>solicitarSistemaIntegrado(id),verCuerpo:()=>regresarAlCuerpo('todos'),verPiel:()=>regresarAlCuerpo('piel'),verConjunto:id=>chooseGroup(id,{fuenteLocal:true}),contextoExterno:()=>desarrollador?.activo?'importado':profesional?.activo?'profesional':especies?.activo()?'especie':null,buscarExterno:q=>desarrollador?.activo?desarrollador.buscar(q):profesional?.activo?profesional.resultadosBusqueda(q):especies?.activo()?especies.resultadosBusqueda(q):null,seleccionarExterno:i=>{solicitudModelo++;$('modeloIntegrado').disabled=false;document.body.classList.remove('cambiando-modelo');if(desarrollador?.activo)desarrollador.elegir(i);else if(profesional?.activo)profesional.elegir(i);else if(especies?.activo())especies.elegir(i);}});buscador.actualizar();setupButtons();renderGuide();renderSubgroups();renderPartBrowser();
+  ojoDetallado=crearOjoDetallado({host:$('viewShell'),obtenerAtlas:()=>atlas,avisar:toast,obtenerFondo:()=>api.scene.background,obtenerLevitacion:()=>({activa:atlas?.liftEnabled,fuerza:atlas?.liftAmount,reducida:atlas?.reducedMotion}),onLimpiar:()=>{atlas?.clearSelection();$('partCallout').hidden=true;$('calloutConnector').hidden=true;},onSeleccionar:i=>{if(atlas?.parts[i])choosePart(i,{zoom:false,fuenteLocal:true,desdeOjo:true});}});
+  $('partSearch').disabled=true;buildSystems();buscador=crearBuscadorAnatomico({activarDesarrollador:desarrollador.activar,obtenerAtlas:()=>atlas,seleccionar:i=>choosePart(i,{zoom:true,fuenteLocal:true}),verSistema:id=>solicitarSistemaIntegrado(id),verCuerpo:()=>regresarAlCuerpo('todos'),verPiel:()=>regresarAlCuerpo('piel'),verConjunto:id=>chooseGroup(id,{fuenteLocal:true}),contextoExterno:()=>desarrollador?.activo?'importado':profesional?.activo?'profesional':especies?.activo()?'especie':null,buscarExterno:q=>desarrollador?.activo?desarrollador.buscar(q):profesional?.activo?profesional.resultadosBusqueda(q):especies?.activo()?especies.resultadosBusqueda(q):null,seleccionarExterno:i=>{solicitudModelo++;$('modeloIntegrado').disabled=false;document.body.classList.remove('cambiando-modelo');if(desarrollador?.activo)desarrollador.elegir(i);else if(profesional?.activo)profesional.elegir(i);else if(especies?.activo())especies.elegir(i);}});buscador.actualizar();setupButtons();renderGuide();renderSubgroups();renderPartBrowser();
   await atlas.load((pct,count)=>{
    $('progress').style.width=pct+'%';$('progressText').textContent=pct+'% · '+number(count)+' piezas';
    $('sceneStatus').textContent='CARGANDO MODELO '+pct+'%';
@@ -775,6 +781,7 @@ async function start(){
   // estén disponibles y los controladores de interfaz hayan sido instalados.
   await atlas.cargaCompleta;
   if(atlas.partCountLoaded!==atlas.parts.length)throw Error('La carga del atlas quedó incompleta.');
+  $('partSearch').disabled=false;
   $('sceneStatus').textContent='SISTEMAS LOCALES LISTOS';updateStatus();
   api.setBodyBounds(atlas.boxes);api.camView('frente');
   especies=crearBibliotecaEspecies({api,obtenerAtlas:()=>atlas,avisar:toast,alCambiar:estado=>{
@@ -827,12 +834,12 @@ async function start(){
    alSeleccionar:(e,grupoInfo)=>{
     if(!profesional?.activo)return;
     buscador?.cerrar();
-    const sub=$('partesSeleccion29');const piezas=profesional.partesSeleccionadas();if(e){$('explode').value='0';$('explodeValue').textContent='0%';$('btnSeparar').classList.remove('active');$('btnSeparar').setAttribute('aria-pressed','false');$('btnSeparar').textContent='Separar capas';}sub.hidden=!piezas.length;sub.innerHTML=piezas.length?'<h4>Subestructuras disponibles</h4>'+piezas.map(p=>`<button type="button" data-subparte-pro="${p.id}">${escapar(p.nombreEs)}</button>`).join(''):'';
+    const sub=$('partesSeleccion');const piezas=profesional.partesSeleccionadas();if(e){$('explode').value='0';$('explodeValue').textContent='0%';$('btnSeparar').classList.remove('active');$('btnSeparar').setAttribute('aria-pressed','false');$('btnSeparar').textContent='Separar capas';}sub.hidden=!piezas.length;sub.innerHTML=piezas.length?'<h4>Subestructuras disponibles</h4>'+piezas.map(p=>`<button type="button" data-subparte-pro="${p.id}">${escapar(p.nombreEs)}</button>`).join(''):'';
     if(!e){
      if(grupoInfo?.filtro){$('partName').textContent=GUIAS[grupoInfo.filtro]?.titulo||('Sistema '+grupoInfo.filtro);
       $('detalleSistemaActual').textContent='VISTA DEL SISTEMA';
       $('partDescription').textContent=`Se muestran ${grupoInfo.total} submallas de Z-Anatomy disponibles para este grupo. Las estructuras no incluidas no se simulan.`;
-      vista2d?.setSystem(grupoInfo.filtro==='todos'?'skeletal':grupoInfo.filtro);}
+      vista2d?.setSystem(grupoInfo.filtro==='todos'?'skeletal':grupoInfo.filtro);$('partGuide').textContent=GUIAS[grupoInfo.filtro]?.resumen||$('partDescription').textContent;}
      $('partCallout').hidden=true;$('calloutConnector').hidden=true;updateMath();updateStatus();return;
     }
     if(GUIAS[e.sistema]){chosenSystem=e.sistema;$('systemSelect').value=chosenSystem;renderGuide();renderSubgroups();renderPartBrowser();}
@@ -842,12 +849,14 @@ async function start(){
     $('partName').textContent=e.nombreEs;
     $('detalleSistemaActual').textContent=GUIAS[e.sistema]?.titulo||('Sistema '+e.sistema);
     const verificada=fichaAnatomicaIdentificada(e.nombre)||fichaAnatomicaIdentificada(e.nombreEs);
-    const descripcion=verificada?.descripcion||tema?.texto||`Pieza tridimensional identificada como ${e.nombreEs}. Su modelo no incluye datos individuales de función.`;
+    const local=atlas.parts.find(p=>normalizarBusqueda(p.name)===normalizarBusqueda(e.nombre));
+    const fichaAlternativa=fichaComponente(local||{id:'GLB',name:e.nombre,system:e.sistema,vertexCount:vertices,indexCount:tri*3});
+    const descripcion=verificada?.descripcion||fichaAlternativa.descripcion||tema?.texto||`Pieza tridimensional identificada como ${e.nombreEs}.`;
     $('partDescription').textContent=descripcion;
     if(verificada){
      $('partGuide').innerHTML=`<div class="guide-kicker">INFORMACIÓN ANATÓMICA</div><h3>${escapar(e.nombreEs)}</h3><section class="ficha-seccion"><h4>Qué es</h4><p>${escapar(verificada.descripcion)}</p></section><section class="ficha-seccion"><h4>Ubicación</h4><p>${escapar(verificada.ubicacion)}</p></section><section class="ficha-seccion"><h4>Función</h4><p>${escapar(verificada.funcion)}</p></section><section class="ficha-seccion"><h4>Organización</h4><p>${escapar(verificada.estructura)}</p></section><section class="ficha-seccion"><h4>Relaciones anatómicas</h4><p>${escapar(verificada.relaciones)}</p></section><details class="ficha-metadata"><summary>Fuente y datos del modelo</summary><p>Z-Anatomy · GLB externo. Consulta educativa basada en OpenStax y NCBI Bookshelf.</p></details>`;
-    }else $('partGuide').innerHTML=`<div class="guide-kicker">ESTRUCTURA DEL MODELO</div><h3>${escapar(e.nombreEs)}</h3><p>${escapar(descripcion)}</p><details class="ficha-metadata"><summary>Datos técnicos y limitaciones</summary><p>Sin ficha anatómica individual verificada para esta submalla. Fuente geométrica: Z-Anatomy.</p></details>`;
-    inspectorEstudio?.actualizarExterno({nombre:e.nombreEs,grupo:GUIAS[e.sistema]?.titulo||e.sistema,tipo:'Estructura del modelo GLB',descripcion,ubicacion:verificada?.ubicacion,funcion:verificada?.funcion,estructura:verificada?.estructura,relaciones:verificada?.relaciones,vertices,triangulos:tri});
+    }else $('partGuide').innerHTML=`<div class="guide-kicker">ESTRUCTURA DEL MODELO</div><h3>${escapar(e.nombreEs)}</h3><p>${escapar(descripcion)}</p><section class="ficha-seccion"><h4>Ubicación</h4><p>${escapar(fichaAlternativa.ubicacion)}</p><h4>Función orientativa</h4><p>${escapar(fichaAlternativa.funcion)}</p><h4>Organización</h4><p>${escapar(fichaAlternativa.estructura)}</p></section><details class="ficha-metadata"><summary>Datos técnicos y limitaciones</summary><p>Sin ficha anatómica individual verificada para esta submalla. Fuente geométrica: Z-Anatomy.</p></details>`;
+    inspectorEstudio?.actualizarExterno({nombre:e.nombreEs,grupo:GUIAS[e.sistema]?.titulo||e.sistema,tipo:'Estructura del modelo GLB',descripcion,ubicacion:verificada?.ubicacion||fichaAlternativa.ubicacion,funcion:verificada?.funcion||fichaAlternativa.funcion,estructura:verificada?.estructura||fichaAlternativa.estructura,relaciones:verificada?.relaciones||fichaAlternativa.relaciones,vertices,triangulos:tri});
     $('partTags').replaceChildren();$('selectedId').textContent='Z-Anatomy';
     $('mathSelectedName').textContent=e.nombreEs;$('mathPartId').textContent='Modelo GLB profesional';
     $('mathVertexCount').textContent=number(vertices)+' vértices';$('mathFaceCount').textContent=number(tri)+' triángulos';

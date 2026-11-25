@@ -1,7 +1,7 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-title Laboratorio Anatomico 3D V31
+title Laboratorio Anatomico 3D
 where py >nul 2>nul
 if %errorlevel%==0 (
   py -3 herramientas\servidor_modelos.py

@@ -1,21 +1,14 @@
 <!doctype html>
 <html lang="es">
 <head>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#050505">
-<title>LABORATORIO ANATÓMICO 3D · Anatomía interactiva · Modelos 3D y voz española</title>
+<title>LABORATORIO ANATÓMICO 3D · Anatomía interactiva · Modelos 3D</title>
 <meta name="description" content="Laboratorio 3D educativo de anatomía con 2.234 fichas del modelo local, detalles por pieza y lectura de la ficha en español.">
 
  <link rel="stylesheet" href="./css/app.css">
-<link rel="stylesheet" href="./css/v29.css">
-<link rel="stylesheet" href="./css/v46.css">
-<link rel="stylesheet" href="./css/v47.css">
-<link rel="stylesheet" href="./css/v48.css">
-<link rel="stylesheet" href="./css/v49.css">
-<link rel="stylesheet" href="./css/v50.css">
-<link rel="stylesheet" href="./css/v51.css">
-<link rel="stylesheet" href="./css/v53.css">
 </head>
 <body data-palette="real" data-mode="noche">
 <div id="app" class="app">
@@ -141,7 +134,7 @@
  </div>
 </div>
   </div>
-  <div class="detalle-seleccion-top"><span class="detalle-kicker"><span class="detalle-estado"></span> FICHA ANATÓMICA + TUTOR</span><span class="voz-label">VOZ ESPAÑOLA</span></div>
+  <div class="detalle-seleccion-top"><span class="detalle-kicker"><span class="detalle-estado"></span> FICHA</span></div>
   <section class="selection" id="fichaSeleccion" aria-label="Ficha y tutor unificados">
    <div class="selection-mini"><span id="detalleSistemaActual">CUERPO HUMANO</span><span id="selectedId">—</span></div>
    <h3 id="partName">Selecciona una pieza</h3>
@@ -159,11 +152,11 @@
     </details>
     <div class="tutor-ia" hidden><input type="checkbox" id="tutorIALocal"><span id="tutorIAEstado" hidden></span></div>
    </div>
-   <div class="selection-actions"><button id="focusPart" class="button secondary"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/><circle cx="12" cy="12" r="3"/></svg> Enfocar</button><button id="alternarLevitacion" type="button" class="button secondary" aria-pressed="true">Detener levitación</button><button id="centerBody" class="button ghost"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/></svg> Volver al cuerpo</button></div>
+   <div class="selection-actions"><button id="focusPart" class="button secondary"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/><circle cx="12" cy="12" r="3"/></svg> Enfocar</button><button id="centerBody" class="button ghost"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/></svg> Volver al cuerpo</button></div>
   </section>
   <div class="inspector-section-bar"><span>ESTUDIAR ESTRUCTURA</span><button type="button" id="toggleInspectorOverview" aria-expanded="true" aria-controls="inspectorOverview" title="Ampliar o reducir el resumen anatómico">Reducir resumen <span aria-hidden="true"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg></span></button></div>
   <div class="inspector-tabs" role="tablist" aria-label="Información de la estructura seleccionada"><button type="button" id="itab-anatomia" data-itab="anatomia" role="tab" aria-selected="true" aria-controls="tab-anatomia" class="active">Anatomía</button><button type="button" id="itab-tecnica" data-itab="tecnica" role="tab" aria-selected="false" aria-controls="tab-tecnica">Matemáticas</button><button type="button" id="itab-control" data-itab="control" role="tab" aria-selected="false" aria-controls="tab-control">Herramientas</button></div>
-  <div class="v29-nav"><button id="historialAnterior" disabled><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg> Anterior</button><button id="restablecerVista29"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/></svg> Restablecer</button><button id="pantallaCompleta29" title="Pantalla completa"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button></div><div class="inspector-content" id="inspectorContent" tabindex="0" aria-label="Detalles de anatomía, geometría y transformación">
+  <div class="navegacion-anatomica"><button id="historialAnterior" disabled><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg> Anterior</button><button id="restablecerVista29"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/></svg> Restablecer</button><button id="pantallaCompleta" title="Pantalla completa"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button></div><div class="inspector-content" id="inspectorContent" tabindex="0" aria-label="Detalles de anatomía, geometría y transformación">
    <section id="tab-anatomia" class="inspector-pane" role="tabpanel" aria-labelledby="itab-anatomia">
 
 <aside id="referenciasRapidas2D" class="referencias-rapidas" aria-label="Referencias anatómicas 2D de la selección" hidden>
@@ -173,7 +166,7 @@
    <div id="refRapidaGaleria" class="ref-rapida-galeria" aria-label="Referencias externas con fuente"></div>
    <p id="refRapidaEstado" role="status">Preparando referencias anatómicas…</p>
    <button id="verTodasReferencias2D" type="button" class="ref-rapida-ver">Abrir todas las referencias 2D</button>
-  </aside><details id="guiaSistemaDetalles" class="guia-sistema-detalles"><summary>Leer guía completa del sistema</summary><div id="systemGuide" class="system-guide"></div></details><div id="partesSeleccion29" hidden></div><section class="estudio-rapido" id="estudioRapido" aria-label="Herramientas de estudio de la estructura">
+  </aside><details id="guiaSistemaDetalles" class="guia-sistema-detalles"><summary>Leer guía completa del sistema</summary><div id="systemGuide" class="system-guide"></div></details><div id="partesSeleccion" hidden></div><section class="estudio-rapido" id="estudioRapido" aria-label="Herramientas de estudio de la estructura">
     <header class="estudio-head"><div><strong>Estudio de la estructura</strong><small id="estudioEstado" role="status" aria-live="polite">Selecciona una pieza del modelo</small></div></header>
     <div class="estudio-resumen" id="estudioResumen" aria-live="polite"></div>
     <div class="estudio-acciones">
@@ -186,7 +179,7 @@
       <div class="estudio-listas"><div><strong>Guardados</strong><div id="estudioFavoritos" class="estudio-elementos"></div></div>
       <div><strong>Consultados recientemente</strong><div id="estudioRecientes" class="estudio-elementos"></div></div></div>
     </details>
-  </section><div id="partGuide" class="part-guide"></div><p id="cobertura31" class="subgrupo-nota" role="status"></p><p class="v29-fuentes"><a href="https://openstax.org/details/books/anatomy-and-physiology-2e" target="_blank" rel="noopener noreferrer">Referencia de anatomía: OpenStax</a></p><div class="pane-title">EXPLORAR POR REGIÓN</div><div id="subsystemBrowser" class="subsystem-browser"></div><div class="pane-title">PARTES DEL SISTEMA <span id="systemPieces">—</span></div><div id="featuredParts" class="featured-parts"></div><div class="part-list-toolbar"><span id="listCount">—</span><button id="showAllSearch" title="Buscar en todos los sistemas">VER TODAS</button></div><div id="partList" class="part-list"></div><button id="moreParts" class="button secondary full" hidden>Mostrar más estructuras</button><details class="layer-details"><summary>CONTROL DE CAPAS / VISIBILIDAD</summary><div class="preset-row"><button data-preset="interno" class="pill">Interior</button><button data-preset="todos" class="pill">Cuerpo completo</button><button data-preset="huesos" class="pill">Óseo</button><button data-preset="organos" class="pill">Órganos</button><button data-preset="piel" class="pill">Piel y cabello</button></div><div id="systemList" class="system-list"></div></details></section>
+  </section><div id="partGuide" class="part-guide"></div><p id="cobertura31" class="subgrupo-nota" role="status"></p><p class="fuentes-anatomicas"><a href="https://openstax.org/details/books/anatomy-and-physiology-2e" target="_blank" rel="noopener noreferrer">Referencia de anatomía: OpenStax</a></p><div class="pane-title">EXPLORAR POR REGIÓN</div><div id="subsystemBrowser" class="subsystem-browser"></div><div class="pane-title">PARTES DEL SISTEMA <span id="systemPieces">—</span></div><div id="featuredParts" class="featured-parts"></div><div class="part-list-toolbar"><span id="listCount">—</span><button id="showAllSearch" title="Buscar en todos los sistemas">VER TODAS</button></div><div id="partList" class="part-list"></div><button id="moreParts" class="button secondary full" hidden>Mostrar más estructuras</button><details class="layer-details"><summary>CONTROL DE CAPAS / VISIBILIDAD</summary><div class="preset-row"><button data-preset="interno" class="pill">Interior</button><button data-preset="todos" class="pill">Cuerpo completo</button><button data-preset="huesos" class="pill">Óseo</button><button data-preset="organos" class="pill">Órganos</button><button data-preset="piel" class="pill">Piel y cabello</button></div><div id="systemList" class="system-list"></div></details></section>
 <section id="tab-tecnica" class="inspector-pane" role="tabpanel" aria-labelledby="itab-tecnica" hidden><div class="pane-title">DATOS DE LA MALLA ACTUAL <span>Geometría</span></div><div id="specGrid" class="spec-grid"></div><div class="pane-title">Material de la pieza</div><div id="materialInfo" class="detail-lines"></div><div class="note-box">Los vértices y triángulos proceden de la malla cargada. Son valores del modelo digital simplificado, no un recuento de células o estructuras humanas. Los FPS son medidos en tu equipo.</div></section>
    <section id="tab-control" class="inspector-pane" role="tabpanel" aria-labelledby="itab-control" hidden><div class="pane-title">TRANSFORMACIONES REALES <span>M = T · R · S</span></div><div id="transformControls"></div><button id="resetTransform" class="button secondary full">Restaurar transformación</button><div class="pane-title">MATERIAL DE LA PIEZA</div><div class="material-controls"><label>Color <input id="matColor" type="color" value="#4c91ff"></label><label>Rugosidad <input id="matRoughness" type="range" min="0" max="100" value="25"><output id="roughValue">0.25</output></label><label>Metalizado <input id="matMetal" type="range" min="0" max="100" value="24"><output id="metalValue">0.24</output></label></div><div class="pane-title">LUCES DE LA ESCENA</div><label class="simple-slider">Intensidad <input id="lightPower" type="range" min="0" max="400" value="205"><output id="lightValue">2.05</output></label><label class="simple-slider">Luz X <input id="lightX" type="range" min="-400" max="400" value="-200"><output id="lightXValue">-2.00</output></label><label class="simple-slider">Luz Y <input id="lightY" type="range" min="0" max="600" value="400"><output id="lightYValue">4.00</output></label></section>
   </div>
@@ -214,12 +207,13 @@
  setTimeout(errorDeModulo,25000);
 })();
 </script>
+<script src="js/dependenciasLocal.js"></script>
 <script>
 (async()=>{
  const local=new URL('./vendor/three/',location.href).href;
  const remoto='https://cdn.jsdelivr.net/npm/three@0.178.0/';
  let base=remoto;
- try{const r=await fetch(local+'package.json',{cache:'no-cache',signal:AbortSignal.timeout(4000)});if(r.ok&&(await r.json()).version==='0.178.0')base=local;}catch{}
+ if(window.__LAB_THREE_LOCAL===true)base=local;
  window.__LAB_THREE_BASE=base;
  const mapa=document.createElement('script');mapa.type='importmap';mapa.textContent=JSON.stringify({imports:{three:base+'build/three.module.js','three/addons/':base+'examples/jsm/'}});document.head.append(mapa);
  try{await import('./js/main.js');}catch(e){console.error(e);document.getElementById('loading').hidden=true;document.getElementById('error').hidden=false;document.getElementById('errorDetail').textContent='No se pudo iniciar Three.js: '+e.message+'. Ejecuta INSTALAR_DEPENDENCIAS_WINDOWS.bat y abre de nuevo con Live Server.';}

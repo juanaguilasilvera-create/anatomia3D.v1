@@ -1,4 +1,4 @@
-/* V50: utilidades reales del inspector inferior derecho.
+/* utilidades reales del inspector inferior derecho.
    No crea fichas anatómicas; reutiliza exclusivamente las existentes. */
 const CLAVE='laboratorio3d:favoritos:v50';
 const $=id=>document.getElementById(id);

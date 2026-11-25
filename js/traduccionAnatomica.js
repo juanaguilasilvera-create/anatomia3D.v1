@@ -58,6 +58,7 @@ function frase(entrada){
 }
 /** Traduce etiquetas, sin modificar el nombre de origen; devuelve traducción orientativa. */
 export function traducirNombreAnatomico(nombre){
+ if(/^external ear$/i.test(String(nombre).trim()))return "Oído externo";
  const n=String(nombre||'').trim();if(!n)return '';
  let m=n.match(/^(Medial|Lateral) head of (right|left) gastrocnemius$/i);
  if(m)return `Cabeza ${m[1].toLowerCase()} del gastrocnemio ${lado(m[2])}`;

@@ -8,7 +8,7 @@ const equivalencias=[
 ];
 const vocab=new Map();for(const e of equivalencias){const [key,...terms]=e.split(' ');for(const t of [key,...terms])vocab.set(t,key);}
 const stop=new Set('el la los las un una de del al en y e a of the and in for mostrar ver buscar quiero encontrar donde esta cual es parte partes organo organos'.split(' '));
-export function tokensBusqueda(v){return normalizarBusqueda(v).split(' ').filter(t=>t&&!stop.has(t)).map(t=>vocab.get(t)||t);}
+export function tokensBusqueda(v){return normalizarBusqueda(v).split(' ').filter(t=>t&&!stop.has(t)).map(t=>vocab.get(t)||t).filter((t,i,a)=>a.indexOf(t)===i);}
 export function distanciaEdicion(a,b){let p=Array.from({length:b.length+1},(_,i)=>i),pp=p;for(let i=1;i<=a.length;i++){const c=[i];for(let j=1;j<=b.length;j++){c[j]=Math.min(c[j-1]+1,p[j]+1,p[j-1]+Number(a[i-1]!==b[j-1]));if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])c[j]=Math.min(c[j],pp[j-2]+1);}pp=p;p=c;}return p[b.length];}
 export function prepararBusqueda(...campos){return campos.filter(Boolean).map(c=>({texto:normalizarBusqueda(c),tokens:tokensBusqueda(c)}));}
 const lados=new Set(['izquierdo','derecho']);

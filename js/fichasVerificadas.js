@@ -1,4 +1,4 @@
-/* V51 — Ampliaciones anatómicas educativas revisables.
+/* Ampliaciones anatómicas educativas revisables.
  * Se aplican únicamente cuando el NOMBRE ORIGINAL identifica sin ambigüedad la estructura.
  * Una entrada sobre un órgano no acredita individualmente cada submalla del órgano.
  * Fuentes de consulta: OpenStax Anatomy & Physiology 2e (CC BY 4.0)

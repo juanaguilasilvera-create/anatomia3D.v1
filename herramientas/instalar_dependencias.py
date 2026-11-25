@@ -11,7 +11,7 @@ def main():
     destino=BASE/'vendor'/'three'
     if (destino/'package.json').is_file() and (destino/'build/three.module.js').is_file():
         if json.loads((destino/'package.json').read_text())['version']==VERSION:
-            print('Three.js local ya instalado.');return
+            (BASE/'js'/'dependenciasLocal.js').write_text('window.__LAB_THREE_LOCAL=true;\n');print('Three.js local ya instalado.');return
     (BASE/'vendor').mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory(dir=BASE/'vendor') as temp:
         temp=Path(temp);tgz=temp/'three.tgz';out=temp/'three';out.mkdir()
@@ -37,6 +37,7 @@ def main():
         if json.loads((out/'package.json').read_text())['version']!=VERSION:raise ValueError('Versión incorrecta')
         if destino.exists():shutil.rmtree(destino)
         shutil.move(str(out),str(destino))
+    (BASE/'js'/'dependenciasLocal.js').write_text('window.__LAB_THREE_LOCAL=true;\n')
     print('Three.js instalado. El atlas local ya no requiere el CDN. Las referencias externas siguen necesitando Internet.')
 if __name__=='__main__':
     try:main()

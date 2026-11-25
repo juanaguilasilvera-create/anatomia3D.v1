@@ -1,4 +1,4 @@
-/* V12 · Búsqueda jerárquica real: cuerpo → sistema → familia → estructura.
+/* Búsqueda jerárquica real: cuerpo → sistema → familia → estructura.
    No promete órganos inexistentes: todas las hojas provienen del atlas cargado. */
 import {nombreAnatomico} from './anatomia.js';
 import {SISTEMAS,infoSistema,escapar} from './catalogo.js';
@@ -19,7 +19,7 @@ const FAMILIAS=[
  {id:'musculos',nombre:'Músculos',sistemas:['muscular'],terminos:'muscle femoris biceps triceps deltoid',alias:'musculo musculos muslo'},
  {id:'vasos',nombre:'Vasos sanguíneos',sistemas:['arterial','venous'],terminos:'artery vein aorta cava vascular',alias:'arteria vena vasos circulacion'}
 ];
-const ALIAS_GRUPO={cerebro:['cerebro','encefalo','brain','cerebro completo'],corazon:['corazon','heart','corazon completo'],ojos:['ojo','ojos','eye','eyes'],rinones:['rinones','rinon','kidneys','kidney'],bronquios:['pulmon','pulmones','lung','lungs','bronquios','arbol bronquial'],estomago:['estomago','stomach'],pancreas:['pancreas'],bazo:['bazo','spleen'],higado:['higado','liver'],vesicula:['vesicula','vesicula biliar','gallbladder'],intestinos:['intestino','intestinos','bowel','intestines'],aorta:['aorta']};
+const ALIAS_GRUPO={cerebro:['cerebro','encefalo','brain','cerebro completo','cerebro y encéfalo','encéfalo completo','cerebrum'],corazon:['corazon','heart','corazon completo'],ojos:['ojo','ojos','eye','eyes'],rinones:['rinones','rinon','kidneys','kidney'],bronquios:['pulmon','pulmones','lung','lungs','bronquios','arbol bronquial'],estomago:['estomago','stomach'],pancreas:['pancreas'],bazo:['bazo','spleen'],higado:['higado','liver'],vesicula:['vesicula','vesicula biliar','gallbladder'],intestinos:['intestino','intestinos','bowel','intestines'],aorta:['aorta']};
 const ALIAS_SISTEMA={skeletal:['sistema oseo','esqueleto','huesos','sistema esqueletico'],cartilage:['cartilagos'],muscular:['musculos','musculatura'],cardiac:['sistema cardiaco'],arterial:['arterias'],venous:['venas'],nervous:['nervios','sistema nervioso'],respiratory:['sistema respiratorio','aparato respiratorio'],digestive:['sistema digestivo','aparato digestivo'],urinary:['sistema urinario','aparato urinario','sistema renal'],reproductive:['sistema reproductor','aparato reproductor'],lymphatic:['sistema linfatico'],endocrine:['sistema endocrino'],sensory:['sentidos','sistema sensorial'],connective:['tejido conectivo','ligamentos y tendones'],integumentary:['sistema tegumentario','sistema integumentario'],circulatory:['sistema circulatorio','sistema cardiovascular','aparato circulatorio','circulacion']};
 const FALTANTES=[[/^(?:pulmon|lung) (?:izquierdo|derecho|izquierda|derecha|left|right)$|^(?:izquierdo|derecho|left|right) (?:pulmon|lung)$/,'No hay una superficie completa de ese pulmón en el atlas local.'],[/^(?:tiroides|thyroid gland|glandula tiroides|paratiroides|glandula paratiroides|parathyroid gland|medula espinal|spinal cord|menisco(?:s)?|ganglios linfaticos|vasos linfaticos|nervio ciatico|sciatic nerve|utero|ovarios?|ovary|uterus|oido interno)$/,'No se identificó una malla general de esta estructura en el atlas local de referencia.']];
 function coincideFamilia(f,r){return f.sistemas.includes(r.p.system)&&f.terminos.split(' ').some(t=>r.original.includes(t));}
@@ -88,7 +88,7 @@ export function crearBuscadorAnatomico({obtenerAtlas,seleccionar,verSistema,verC
    if(ext.length>cupo)contenido+=`<button type="button" class="buscador-mas" data-mas="1">Ver más (${ext.length-cupo})</button>`;
    mostrar(contenido);return;
   }
-  const conjuntos=ordenarBusqueda(conjuntosIndex,q).filter(g=>g.puntos>=76 && tokensBusqueda(q).length<=2).map(g=>({...g,sub:`${g.cantidad} mallas locales · ${['cerebro','corazon','bronquios','higado','intestinos'].includes(g.id)?'Cobertura parcial':'Ver conjunto'}`}));
+  const conjuntos=ordenarBusqueda(conjuntosIndex,q,{difusa:false}).filter(g=>g.puntos>=76 && tokensBusqueda(q).length<=2).map(g=>({...g,sub:`${g.cantidad} mallas locales · ${['cerebro','corazon','bronquios','higado','intestinos'].includes(g.id)?'Cobertura parcial':'Ver conjunto'}`}));
   const sistemas=ordenarBusqueda([...SISTEMAS,{id:'circulatory',name:'Sistema cardiovascular'}].map(s=>({tipo:'sistema',id:s.id,nombre:s.name,sub:'Explorar el sistema · atlas disponible',campos:prepararBusqueda(s.name,...(ALIAS_SISTEMA[s.id]||[]))})),q).filter(x=>x.puntos>=76);
   const familias=FAMILIAS.filter(f=>puntuarBusqueda(prepararBusqueda(f.nombre,...f.alias.split(' ')),q,{difusa:false})>=120&&resolverFamilia(f).length).map(f=>({tipo:'familia',f,nombre:f.nombre,sub:`${resolverFamilia(f).length} estructuras relacionadas`}));
   const piezas=ordenarBusqueda(registros,q,{difusa:false});const aproximadas=!piezas.length&&!conjuntos.length&&!ext.length?ordenarBusqueda(registros,q):[];
@@ -96,8 +96,8 @@ export function crearBuscadorAnatomico({obtenerAtlas,seleccionar,verSistema,verC
   const falta=!piezas.some(p=>p.puntos>=190)?FALTANTES.find(([re])=>re.test(q)):null;
   if(falta&&!ext.length)contenido+=`<p class="buscador-aviso">${escapar(falta[1])} Las coincidencias relacionadas no sustituyen esa estructura.</p>`;
   if(esSistema)contenido+=seccion('SISTEMAS ANATÓMICOS',sistemas.slice(0,5));
-  contenido+=seccion('MODELOS PROFESIONALES CARGADOS',ext.slice(0,cupo));
   contenido+=seccion('CONJUNTOS DEL ATLAS LOCAL',conjuntos.slice(0,5));
+  contenido+=seccion('MODELOS PROFESIONALES CARGADOS',ext.filter(x=>!x.aproximado).slice(0,cupo));
   contenido+=seccion(`ESTRUCTURAS LOCALES · ${piezas.length}`,piezas.slice(0,cupo));
   if(!esSistema)contenido+=seccion('SISTEMAS ANATÓMICOS',sistemas.slice(0,5));
   contenido+=seccion('EXPLORAR POR FAMILIA',familias.slice(0,5));

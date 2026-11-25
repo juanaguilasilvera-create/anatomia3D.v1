@@ -1,5 +1,5 @@
 /**
- * V52: fuente única de narración anatómica en español.
+ * fuente única de narración anatómica en español.
  * Contenido fisiológico educativo independiente de las mallas del visor.
  * Las fichas individuales se priorizan; no se deducen funciones exclusivas de una
  * pieza a partir de su proximidad ni se presentan generalizaciones como diagnóstico.

@@ -18,7 +18,7 @@ export function iniciarEscena(host){
  const fill=new THREE.DirectionalLight(0xe9e6ff,1.8);fill.position.set(2,1,-3);scene.add(fill);
  const point=new THREE.PointLight(0xffffff,10,5,2);point.position.set(1.6,2.2,1);scene.add(point);
  const rim=new THREE.DirectionalLight(0xb49aff,1.35);rim.position.set(-2,.8,-3);scene.add(rim);
- // V12: fondo neutro de estudio. Se eliminan los círculos holográficos
+ // fondo neutro de estudio. Se eliminan los círculos holográficos
  // y la plataforma para que la pieza anatómica sea el único protagonista.
  const platform=new THREE.Group();scene.add(platform);
  const grid=new THREE.Group();scene.add(grid);

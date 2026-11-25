@@ -72,7 +72,7 @@ export function crearVista2D(api,avisar=()=>{},obtenerAtlas=()=>null,obtenerCaja
   const btn=document.createElement('button');btn.type='button';btn.textContent=`Modelo · ${VISTAS[vistaActual].nombre}`;btn.classList.toggle('active',origen==='captura');btn.addEventListener('click',mostrarCaptura);opciones.append(btn);
   referencias.forEach((ref,i)=>{
    const b=document.createElement('button');b.type='button';b.className='lamina-referencia';b.classList.toggle('active',origen==='externa'&&indiceExterno===i);b.title=ref.titulo;
-   const img=document.createElement('img');img.src=ref.miniatura;img.alt='Miniatura de referencia';img.loading='lazy';
+   const img=document.createElement('img');img.src=ref.miniatura;img.alt='Miniatura de referencia';img.loading='eager';
    const txt=document.createElement('span');txt.textContent=`Referencia ${i+1}: ${nombre()}`;b.append(img,txt);b.addEventListener('click',()=>mostrarReferencia(i));opciones.append(b);
   });
  }
@@ -124,7 +124,7 @@ export function crearVista2D(api,avisar=()=>{},obtenerAtlas=()=>null,obtenerCaja
    refsRapidas=items;rapidaGaleria.replaceChildren();
    for(const [i,ref] of items.slice(0,3).entries()){
     const b=document.createElement('button');b.type='button';b.title='Abrir referencia '+(i+1)+' con su licencia';
-    const img=document.createElement('img');img.src=ref.miniatura;img.alt='Imagen relacionada: '+nombre();img.loading='lazy';
+    const img=document.createElement('img');img.src=ref.miniatura;img.alt='Imagen relacionada: '+nombre();img.loading='eager';
     b.append(img);b.addEventListener('click',()=>{
      setMode('2d');referencias=refsRapidas;llenarBotones();mostrarReferencia(i);
     });rapidaGaleria.append(b);

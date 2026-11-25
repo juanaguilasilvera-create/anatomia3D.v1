@@ -18,7 +18,7 @@ export class Atlas3D {
   this.selectionPart=null;this.selectionBounds=null;this.selectionCenter=null;this.selectionIndices=null;this.selectionOwnGeometry=false;
   this.selectionMesh=null;this.selectionGhost=null;this.selectionRing=null;this.selectionLink=null;this.selectionBloom=null;this.wire=null;this.normalArrows=[];this.showWire=false;this.showNormals=false;
   this._materialesAntesDeSeleccion=null;this.returning=false;this.liftEnabled=true;this.liftAmount=.56;this.reducedMotion=false;this.liftProgress=0;this.floatOffset=new THREE.Vector3();this.floatTarget=new THREE.Vector3();
-  // V12: la pieza aislada se traslada al CENTRO del escenario (sin copias ni anillos).
+  // la pieza aislada se traslada al CENTRO del escenario (sin copias ni anillos).
   this.inspectionCenter=new THREE.Vector3(0,.9,0);this.inspectionProgress=0;
   this.transform={tx:0,ty:0,tz:0,rx:0,ry:0,rz:0,sx:1,sy:1,sz:1};this.partCountLoaded=0;this.pickerMaterial=new THREE.MeshBasicMaterial();
   this._setMaterials();this._setPickEvents();
@@ -99,7 +99,7 @@ export class Atlas3D {
  }
  pick(pointer){
   this.raycaster.setFromCamera(pointer,this.api.camera);let best=-1,minDist=Infinity;
-  if(this.selectionIndices&&this.selectionMesh){const hit=this.raycaster.intersectObject(this.selectionMesh,false).find(v=>!this.api.cut||this.api.plane.distanceToPoint(v.point)>=-.0001);if(!hit)return -1;let fin=0;for(const i of this.selectionIndices){const g=this.pickMeshes[i].geometry;fin+=Math.floor((g.index?.count||g.attributes.position.count)/3);if(hit.faceIndex<fin)return i;}return -1;}
+  if(this.selectionIndices&&this.selectionMesh){const hit=this.raycaster.intersectObject(this.selectionMesh,false).find(v=>!this.api.cut||this.api.plane.distanceToPoint(v.point)>=-.0001);if(!hit)return -1;const indice=this.selectionMesh.geometry.getAttribute('partIndex')?.getX(hit.face.a);return this.selectionIndices.includes(indice)?indice:-1;}
   // Primero AABB: evita raycasting exacto sobre miles de triángulos innecesarios.
   const skipSkin=this.explode===0&&this.visible.size>1&&this.visible.has('integumentary')&&this.systemMats.get('integumentary').opacity<.99;
   for(let i=0;i<this.parts.length;i++){
@@ -198,7 +198,7 @@ export class Atlas3D {
  setLift(enabled){this.liftEnabled=Boolean(enabled);}
  setLiftAmount(amount){this.liftAmount=THREE.MathUtils.clamp(Number(amount),0,1);}
  returnSelection(){if(this.selected<0)return;this.clearSelection();}
- // V12: sin geometría decorativa (anillos, enlaces holográficos o fantasmas).
+ // sin geometría decorativa (anillos, enlaces holográficos o fantasmas).
  _createSelectionFX(){}
  _removeSelectionFX(){}
  animate(now,delta=.016){
@@ -221,8 +221,8 @@ export class Atlas3D {
    const bounds=this.selectionBounds||this.boxes[this.selected];
    const tam=bounds.getSize(this._liftSize||(this._liftSize=new THREE.Vector3()));
    const escala=Math.max(tam.x,tam.y,tam.z,.01);
-   const altura=THREE.MathUtils.clamp(escala*.18,.014,.12)*fuerza;
-   const oscilacion=THREE.MathUtils.clamp(escala*.05,.007,.035)*fuerza;
+   const altura=THREE.MathUtils.clamp(escala*.20,.004,.12)*fuerza;
+   const oscilacion=THREE.MathUtils.clamp(escala*.09,.002,.045)*fuerza;
    // La oscilación se aplica a la matriz 3D, no al panel HTML.
    this.floatOffset.y+=(altura+oscilacion*Math.sin(now*.0026))*this.liftProgress*this.inspectionProgress;
   }

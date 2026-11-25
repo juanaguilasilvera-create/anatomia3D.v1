@@ -17,9 +17,9 @@ function eyeItems(parts,side){
    || n.startsWith('anterior chamber of '+prefijo+' ');
   if(!lado)continue;
   const grupo=grupoMaterialOcular(p);
-  if(!grupo)continue;
+  if(!grupo||!grupo.startsWith('ojo-'))continue;
   // No mezclar estructuras neurológicas de nombre similar (p. ej. plexo coroideo cerebral).
-  if(!(/cornea|iris|choroid|ciliar|lens|retina|sclera|vitreous|lacrimal|tarsal|tendinous|optic nerve|anterior chamber/.test(n)))continue;
+  if(!(/cornea|iris|choroid|ciliar|lens|retina|sclera|vitreous|lacrimal|tarsal|tendinous|suspensory ligament|eyelid|optic nerve|anterior chamber/.test(n)))continue;
   elegidos.push({index:i,part:p,grupo});
  }
  return elegidos.sort((a,b)=>indiceCapa(a.grupo)-indiceCapa(b.grupo));
@@ -68,16 +68,16 @@ function subdividirUnaVez(original){
  else out.computeVertexNormals();
  out.computeBoundingBox();out.computeBoundingSphere();return out;
 }
-export function crearOjoDetallado({host,obtenerAtlas,avisar,onSeleccionar}){
+export function crearOjoDetallado({host,obtenerAtlas,avisar,onSeleccionar,onLimpiar,obtenerFondo,obtenerLevitacion}){
  let root=null,renderer=null,scene=null,camera=null,controls=null,grupo=null,observer=null,animacion=0;
- let lado='izquierdo',separacion=72,items=[],selected=-1,construyendo=false;
+ let lado='izquierdo',separacion=72,items=[],selected=-1,construyendo=false,solicitudOcular=0;
  const wrapper=document.createElement('section');wrapper.className='visor-ojo-detalle';wrapper.hidden=true;
  wrapper.setAttribute('aria-label','Modelo ocular 3D por capas');
  wrapper.innerHTML=`
- <div class="ojo-detalle-encabezado"><div><small>MODELO ANATÓMICO DETALLADO</small><strong>Ojo humano · estudio por capas</strong><span>Geometría de referencia BodyParts3D con materiales diferenciados</span></div><button class="ojo-cerrar" type="button" aria-label="Cerrar el modelo ocular">Cerrar ✕</button></div>
+ <div class="ojo-detalle-encabezado"><div><small>MODELO ANATÓMICO DETALLADO</small><strong>Ojo humano · estudio por capas</strong><span>Geometría de referencia BodyParts3D con materiales diferenciados</span></div><button class="ojo-cerrar" type="button" aria-label="Cerrar el modelo ocular">← Volver al atlas</button></div>
  <div class="ojo-vista"></div>
  <div class="ojo-detalle-controles"><label>Ojo <select class="ojo-lado"><option value="izquierdo">Izquierdo</option><option value="derecho">Derecho</option></select></label><label>Separación de capas <input class="ojo-separacion" aria-label="Separar capas oculares" type="range" min="0" max="100" value="72"><output class="ojo-nivel">72%</output></label></div>
- <div class="ojo-detalle-pie"><div class="ojo-detalle-info" role="status"><strong>Selecciona una capa</strong><p>Haz clic en una pieza o en su nombre. La ficha del tutor mostrará sus datos y podrás usar «Leer ficha».</p></div><div class="ojo-lista" aria-label="Capas oculares disponibles"></div></div>
+ <div class="ojo-detalle-pie"><div class="ojo-detalle-info" role="status"><strong>Selecciona una capa</strong><p>Haz clic en una pieza o en su nombre. La ficha mostrará sus datos y podrás usar «Leer ficha».</p></div><div class="ojo-lista" aria-label="Capas oculares disponibles"></div></div>
  <small class="ojo-aviso">Vista educativa de estructuras disponibles; la subdivisión mejora el suavizado visual sin añadir precisión anatómica. No es un dispositivo médico.</small>`;
  host.appendChild(wrapper);
  const $=s=>wrapper.querySelector(s);
@@ -96,7 +96,7 @@ export function crearOjoDetallado({host,obtenerAtlas,avisar,onSeleccionar}){
   updateInfo(item);
   onSeleccionar?.(item.index);
  }
- function render(){animacion=requestAnimationFrame(render);controls?.update();renderer?.render(scene,camera);}
+ function render(now=0){animacion=requestAnimationFrame(render);const l=obtenerLevitacion?.();for(const t of items){const objetivo=t.index===selected&&l?.activa&&!l.reducida?(0.12+0.06*Math.sin(now*.0026))*Number(l.fuerza||0):0;t.malla.position.y=THREE.MathUtils.lerp(t.malla.position.y,objetivo,.12);t.malla.updateMatrixWorld(true);}const fondo=obtenerFondo?.();if(fondo?.isColor)scene.background.copy(fondo);controls?.update();renderer?.render(scene,camera);}
  function disposeView(){
   if(animacion)cancelAnimationFrame(animacion);animacion=0;
   observer?.disconnect();observer=null;controls?.dispose();controls=null;
@@ -141,9 +141,11 @@ export function crearOjoDetallado({host,obtenerAtlas,avisar,onSeleccionar}){
    return `<button type="button" data-ojo-parte="${item.index}" aria-pressed="false"><i style="background:${PERFILES_OCULARES[item.grupo]?.color||'#ccc'}"></i>${nombre}${repeated?' '+ix:''}</button>`;
   }).join('');
   updateInfo(null);
+  grupo.updateMatrixWorld(true);const bounds=new THREE.Box3().setFromObject(grupo);
+  if(!bounds.isEmpty()){const centro=bounds.getCenter(new THREE.Vector3()),size=bounds.getSize(new THREE.Vector3());const radio=size.length()/2;const d=radio/Math.sin(THREE.MathUtils.degToRad(camera.fov/2))*Math.max(1,1/camera.aspect)*1.12;controls.target.copy(centro);camera.position.copy(centro).add(new THREE.Vector3(0,0,Math.max(.1,d)));controls.minDistance=Math.max(.01,radio*.15);controls.maxDistance=Math.max(10,d*5);controls.update();}
  }
  function startView(){
-  scene=new THREE.Scene();scene.background=new THREE.Color('#0a0e14');
+  scene=new THREE.Scene();scene.background=obtenerFondo?.()?.clone()||new THREE.Color('#000000');
   camera=new THREE.PerspectiveCamera(39,1,.02,100);camera.position.set(2.1,1.1,5.3);
   const hemi=new THREE.HemisphereLight(0xffffff,0x25324c,2.25);scene.add(hemi);
   const key=new THREE.DirectionalLight(0xffffff,2.7);key.position.set(-3,4,5);scene.add(key);
@@ -166,20 +168,21 @@ export function crearOjoDetallado({host,obtenerAtlas,avisar,onSeleccionar}){
  }
  async function abrir(){
   if(!wrapper.hidden)return;
-  if(construyendo)return;construyendo=true;
+  if(construyendo)return;construyendo=true;const solicitud=++solicitudOcular;
   try{
    const atlas=ojoActual();if(!atlas){avisar?.('El modelo anatómico todavía no está disponible');return;}
    if(atlas.cargaCompleta)await atlas.cargaCompleta;
+   if(solicitud!==solicitudOcular||atlas!==ojoActual())return;
    if(!eyeItems(atlas.parts,lado).some(x=>atlas.pickMeshes[x.index])){avisar?.('Las mallas del ojo no están disponibles en este modelo');return;}
-   wrapper.hidden=false;startView();
+   onLimpiar?.();wrapper.hidden=false;startView();
   }catch(e){console.error('Detalle ocular:',e);avisar?.('No se pudo abrir el ojo detallado: '+e.message);cerrar();}
   finally{construyendo=false;}
  }
- function cerrar(){wrapper.hidden=true;disposeView();}
+ function cerrar(){solicitudOcular++;if(wrapper.hidden)return;wrapper.hidden=true;disposeView();onLimpiar?.();}
  $('.ojo-cerrar').addEventListener('click',cerrar);
- $('.ojo-lado').addEventListener('change',e=>{lado=e.target.value;if(renderer)buildForSide();});
+ $('.ojo-lado').addEventListener('change',e=>{lado=e.target.value;onLimpiar?.();if(renderer)buildForSide();});
  $('.ojo-separacion').addEventListener('input',e=>{separacion=Number(e.target.value);separation();});
  lista.addEventListener('click',e=>{const b=e.target.closest('[data-ojo-parte]');if(!b)return;seleccionar(items.find(x=>x.index===Number(b.dataset.ojoParte)));});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!wrapper.hidden)cerrar();});
- return {abrir,cerrar,activo:()=>!wrapper.hidden};
+ return {abrir,cerrar,activo:()=>!wrapper.hidden,seleccionMesh:()=>items.find(x=>x.index===selected)?.malla,camara:()=>camera,elementoVista:()=>vista};
 }
